@@ -16,15 +16,47 @@ class RoomsScreen extends StatelessWidget {
         child: ListView.builder(
           itemCount: rooms.length,
           itemBuilder: (context, index) {
-            return ListTile(
-              title: Text(rooms[index].name),
-            );
+            return _RoomItem(name: rooms[index].name);
           },
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         child: const Icon(Icons.add),
+      ),
+    );
+  }
+}
+
+class _RoomItem extends StatelessWidget {
+  const _RoomItem({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
+
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 8),
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+            color: Colors.grey[300], borderRadius: BorderRadius.circular(8)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              name,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const Icon(Icons.arrow_forward),
+          ],
+        ),
       ),
     );
   }

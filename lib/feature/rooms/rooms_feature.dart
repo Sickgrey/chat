@@ -5,6 +5,7 @@ import 'package:chat/feature/rooms/domain/repositories/rooms_repository.dart';
 import 'package:chat/feature/rooms/domain/state/rooms_bloc.dart';
 import 'package:chat/feature/rooms/domain/state/rooms_event.dart';
 import 'package:chat/feature/rooms/domain/state/rooms_state.dart';
+import 'package:chat/uikit/uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,9 +21,9 @@ class RoomsFeature extends StatelessWidget {
         ..add(const RoomsListOpened()),
       child: BlocBuilder<RoomsBloc, RoomsState>(builder: (context, state) {
         return state.when(
-          loading: () => Container(),
+          loading: () => const AppLoading(),
           success: (rooms) => RoomsScreen(rooms: rooms),
-          failure: () => Container(),
+          failure: () => const AppFailure(),
         );
       }),
     );
