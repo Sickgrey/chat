@@ -23,18 +23,24 @@ class ChatRoomScreen extends StatelessWidget {
           child: Column(
             children: [
               Expanded(
-                child: ListView.builder(
-                  itemCount: 15,
-                  itemBuilder: (context, index) {
-                    return const Padding(
-                      padding: EdgeInsets.only(top: 8),
-                      child: _MessageItem(),
-                    );
-                  },
-                ),
+                child: messages.isNotEmpty
+                    ? ListView.builder(
+                        itemCount: messages.length,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 8),
+                            child: _MessageItem(
+                              message: messages[index],
+                            ),
+                          );
+                        },
+                      )
+                    : const Center(
+                        child: Text('Сообщений нет'),
+                      ),
               ),
               Container(
-                  padding: const EdgeInsets.only(top: 2),
+                  padding: const EdgeInsets.only(top: 4),
                   child:
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     Expanded(
@@ -51,7 +57,12 @@ class ChatRoomScreen extends StatelessWidget {
                       splashRadius: 20,
                       icon: const Icon(Icons.send),
                       iconSize: 20.0,
-                      onPressed: () {},
+                      onPressed: () {
+                        context.read<ChatRoomBloc>().add(
+                            ChatRoomEvent.messageSended(
+                                room: room, text: messageController.text));
+                        messageController.clear();
+                      },
                     )
                   ])),
             ],
@@ -63,42 +74,45 @@ class ChatRoomScreen extends StatelessWidget {
 }
 
 class _MessageItem extends StatelessWidget {
-  const _MessageItem({Key? key}) : super(key: key);
+  const _MessageItem({Key? key, required this.message}) : super(key: key);
+
+  final Message message;
 
   @override
   Widget build(BuildContext context) {
+    // final dateTime = DateTime.parse(message.created);
+    // final date = DateFormat.yMMM(dateTime);
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[300],
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
-        children: const [
+        children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(8, 8, 4, 4),
+            padding: const EdgeInsets.fromLTRB(8, 8, 4, 4),
             child: Align(
               alignment: Alignment.topLeft,
               child: Text(
-                'Username',
-                style: TextStyle(
+                message.sender.username,
+                style: const TextStyle(
                   fontWeight: FontWeight.w700,
                 ),
               ),
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(left: 8, right: 8),
+            padding: const EdgeInsets.only(left: 8, right: 8),
             child: Align(
               alignment: Alignment.centerLeft,
-              child: Text(
-                  'Messageeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee'),
+              child: Text(message.text),
             ),
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.fromLTRB(4, 4, 8, 8),
             child: Align(
               alignment: Alignment.bottomRight,
-              child: Text('Date'),
+              child: Text('date'),
             ),
           ),
         ],

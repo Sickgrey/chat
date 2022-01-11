@@ -8,6 +8,7 @@ import 'package:chat/feature/chat_room/domain/state/chat_room_state.dart';
 import 'package:chat/uikit/uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 
 part 'presentation/screens/chat_room_screen.dart';
 
