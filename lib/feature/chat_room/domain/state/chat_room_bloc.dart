@@ -21,9 +21,9 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
 
   _fetchNewMessage(ChatRoomMessageFetched event, Emitter<ChatRoomState> emit) {
     if (state is ChatRoomSuccess) {
-      emit(const ChatRoomState.loading());
       final currentState = state as ChatRoomSuccess;
       final messages = currentState.messages;
+      emit(const ChatRoomState.loading());
       messages.add(event.message);
       emit(ChatRoomState.success(messages: messages));
     }
