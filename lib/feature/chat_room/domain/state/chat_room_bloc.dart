@@ -9,7 +9,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   ChatRoomBloc({required this.chatRoomRepository})
       : super(const ChatRoomState.loading()) {
-    _messagesSubscription.cancel();
     chatRoomRepository.messageStream.listen((message) {
       add(ChatRoomEvent.messageFetched(message: message));
     });
@@ -19,7 +18,6 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   }
 
   final ChatRoomRepository chatRoomRepository;
-  late final StreamSubscription _messagesSubscription;
 
   _fetchNewMessage(ChatRoomMessageFetched event, Emitter<ChatRoomState> emit) {
     if (state is ChatRoomSuccess) {
