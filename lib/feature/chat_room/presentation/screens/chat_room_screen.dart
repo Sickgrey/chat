@@ -19,7 +19,7 @@ class ChatRoomScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 24),
+          padding: const EdgeInsets.only(left: 16, right: 16),
           child: Column(
             children: [
               Expanded(
