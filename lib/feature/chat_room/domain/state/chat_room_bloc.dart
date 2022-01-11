@@ -12,11 +12,10 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
     _messagesSubscription.cancel();
     chatRoomRepository.messageStream.listen((message) {
       add(ChatRoomEvent.messageFetched(message: message));
-
-      on<ChatRoomOpened>(_loadMessages);
-      on<ChatRoomMessageFetched>(_fetchNewMessage);
-      on<ChatRoomMessageSended>(_sendMessage);
     });
+    on<ChatRoomOpened>(_loadMessages);
+    on<ChatRoomMessageFetched>(_fetchNewMessage);
+    on<ChatRoomMessageSended>(_sendMessage);
   }
 
   final ChatRoomRepository chatRoomRepository;
