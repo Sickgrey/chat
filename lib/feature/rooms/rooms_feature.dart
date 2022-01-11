@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'presentation/screens/rooms_screen.dart';
+part 'presentation/components/new_room_dialog.dart';
 
 class RoomsFeature extends StatelessWidget {
   const RoomsFeature({Key? key}) : super(key: key);
@@ -30,6 +31,10 @@ class RoomsFeature extends StatelessWidget {
             onRoomTap: (room) {
               AppRouter.instance
                   .pushScreen(context, ChatRoomFeature(room: room));
+            },
+            onCreateRoomTap: (room) {
+              AppRouter.instance.pushAndPopToRoot(
+                  context, ChatRoomFeature(room: room, isNewRoom: true));
             },
           ),
           failure: () => const AppFailure(),
