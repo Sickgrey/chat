@@ -1,3 +1,4 @@
+import 'package:chat/app/data/entity/message.dart';
 import 'package:chat/feature/chat_room/domain/repositories/chat_room_repository.dart';
 import 'package:chat/feature/chat_room/domain/state/chat_room_event.dart';
 import 'package:chat/feature/chat_room/domain/state/chat_room_state.dart';
@@ -35,8 +36,9 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   }
 
   _loadMessages(ChatRoomOpened event, Emitter<ChatRoomState> emit) async {
-    final messages =
-        await roomsRepository.loadMessagesHistory(room: event.room);
+    final messages = event.isNewRoom
+        ? <Message>[]
+        : await roomsRepository.loadMessagesHistory(room: event.room);
     emit(ChatRoomState.success(messages: messages));
   }
 }

@@ -5,10 +5,12 @@ class RoomsScreen extends StatelessWidget {
     Key? key,
     required this.rooms,
     required this.onRoomTap,
+    required this.onCreateRoomTap,
   }) : super(key: key);
 
   final List<Room> rooms;
   final Function(String) onRoomTap;
+  final Function(String) onCreateRoomTap;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,13 @@ class RoomsScreen extends StatelessWidget {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return NewRoomDialog(onCreateRoomTap: onCreateRoomTap);
+              });
+        },
         child: const Icon(Icons.add),
       ),
     );

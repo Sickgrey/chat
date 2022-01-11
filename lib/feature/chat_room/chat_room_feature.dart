@@ -15,9 +15,14 @@ import 'package:intl/intl.dart';
 part 'presentation/screens/chat_room_screen.dart';
 
 class ChatRoomFeature extends StatelessWidget {
-  const ChatRoomFeature({Key? key, required this.room}) : super(key: key);
+  const ChatRoomFeature({
+    Key? key,
+    required this.room,
+    this.isNewRoom = false,
+  }) : super(key: key);
 
   final String room;
+  final bool isNewRoom;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +30,7 @@ class ChatRoomFeature extends StatelessWidget {
       create: (context) => ChatRoomBloc(
         chatRoomRepository: ChatRoomRepository(),
         roomsRepository: getIt<RoomsRepository>(),
-      )..add(ChatRoomEvent.chatRoomOpened(room: room)),
+      )..add(ChatRoomEvent.chatRoomOpened(room: room, isNewRoom: isNewRoom)),
       child: BlocBuilder<ChatRoomBloc, ChatRoomState>(
         builder: (context, state) {
           return state.when(

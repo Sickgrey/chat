@@ -18,9 +18,11 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ChatRoomEventTearOff {
   const _$ChatRoomEventTearOff();
 
-  ChatRoomOpened chatRoomOpened({required String room}) {
+  ChatRoomOpened chatRoomOpened(
+      {required String room, required bool isNewRoom}) {
     return ChatRoomOpened(
       room: room,
+      isNewRoom: isNewRoom,
     );
   }
 
@@ -46,21 +48,21 @@ const $ChatRoomEvent = _$ChatRoomEventTearOff();
 mixin _$ChatRoomEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String room) chatRoomOpened,
+    required TResult Function(String room, bool isNewRoom) chatRoomOpened,
     required TResult Function(Message message) messageFetched,
     required TResult Function(String room, String text) messageSended,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String room)? chatRoomOpened,
+    TResult Function(String room, bool isNewRoom)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String room)? chatRoomOpened,
+    TResult Function(String room, bool isNewRoom)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
     required TResult orElse(),
@@ -112,7 +114,7 @@ abstract class $ChatRoomOpenedCopyWith<$Res> {
   factory $ChatRoomOpenedCopyWith(
           ChatRoomOpened value, $Res Function(ChatRoomOpened) then) =
       _$ChatRoomOpenedCopyWithImpl<$Res>;
-  $Res call({String room});
+  $Res call({String room, bool isNewRoom});
 }
 
 /// @nodoc
@@ -129,12 +131,17 @@ class _$ChatRoomOpenedCopyWithImpl<$Res>
   @override
   $Res call({
     Object? room = freezed,
+    Object? isNewRoom = freezed,
   }) {
     return _then(ChatRoomOpened(
       room: room == freezed
           ? _value.room
           : room // ignore: cast_nullable_to_non_nullable
               as String,
+      isNewRoom: isNewRoom == freezed
+          ? _value.isNewRoom
+          : isNewRoom // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -142,14 +149,16 @@ class _$ChatRoomOpenedCopyWithImpl<$Res>
 /// @nodoc
 
 class _$ChatRoomOpened implements ChatRoomOpened {
-  const _$ChatRoomOpened({required this.room});
+  const _$ChatRoomOpened({required this.room, required this.isNewRoom});
 
   @override
   final String room;
+  @override
+  final bool isNewRoom;
 
   @override
   String toString() {
-    return 'ChatRoomEvent.chatRoomOpened(room: $room)';
+    return 'ChatRoomEvent.chatRoomOpened(room: $room, isNewRoom: $isNewRoom)';
   }
 
   @override
@@ -157,12 +166,15 @@ class _$ChatRoomOpened implements ChatRoomOpened {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is ChatRoomOpened &&
-            const DeepCollectionEquality().equals(other.room, room));
+            const DeepCollectionEquality().equals(other.room, room) &&
+            const DeepCollectionEquality().equals(other.isNewRoom, isNewRoom));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(room));
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(room),
+      const DeepCollectionEquality().hash(isNewRoom));
 
   @JsonKey(ignore: true)
   @override
@@ -172,33 +184,33 @@ class _$ChatRoomOpened implements ChatRoomOpened {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String room) chatRoomOpened,
+    required TResult Function(String room, bool isNewRoom) chatRoomOpened,
     required TResult Function(Message message) messageFetched,
     required TResult Function(String room, String text) messageSended,
   }) {
-    return chatRoomOpened(room);
+    return chatRoomOpened(room, isNewRoom);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String room)? chatRoomOpened,
+    TResult Function(String room, bool isNewRoom)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
   }) {
-    return chatRoomOpened?.call(room);
+    return chatRoomOpened?.call(room, isNewRoom);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String room)? chatRoomOpened,
+    TResult Function(String room, bool isNewRoom)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
     required TResult orElse(),
   }) {
     if (chatRoomOpened != null) {
-      return chatRoomOpened(room);
+      return chatRoomOpened(room, isNewRoom);
     }
     return orElse();
   }
@@ -239,9 +251,11 @@ class _$ChatRoomOpened implements ChatRoomOpened {
 }
 
 abstract class ChatRoomOpened implements ChatRoomEvent {
-  const factory ChatRoomOpened({required String room}) = _$ChatRoomOpened;
+  const factory ChatRoomOpened(
+      {required String room, required bool isNewRoom}) = _$ChatRoomOpened;
 
   String get room;
+  bool get isNewRoom;
   @JsonKey(ignore: true)
   $ChatRoomOpenedCopyWith<ChatRoomOpened> get copyWith =>
       throw _privateConstructorUsedError;
@@ -313,7 +327,7 @@ class _$ChatRoomMessageFetched implements ChatRoomMessageFetched {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String room) chatRoomOpened,
+    required TResult Function(String room, bool isNewRoom) chatRoomOpened,
     required TResult Function(Message message) messageFetched,
     required TResult Function(String room, String text) messageSended,
   }) {
@@ -323,7 +337,7 @@ class _$ChatRoomMessageFetched implements ChatRoomMessageFetched {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String room)? chatRoomOpened,
+    TResult Function(String room, bool isNewRoom)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
   }) {
@@ -333,7 +347,7 @@ class _$ChatRoomMessageFetched implements ChatRoomMessageFetched {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String room)? chatRoomOpened,
+    TResult Function(String room, bool isNewRoom)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
     required TResult orElse(),
@@ -465,7 +479,7 @@ class _$ChatRoomMessageSended implements ChatRoomMessageSended {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String room) chatRoomOpened,
+    required TResult Function(String room, bool isNewRoom) chatRoomOpened,
     required TResult Function(Message message) messageFetched,
     required TResult Function(String room, String text) messageSended,
   }) {
@@ -475,7 +489,7 @@ class _$ChatRoomMessageSended implements ChatRoomMessageSended {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(String room)? chatRoomOpened,
+    TResult Function(String room, bool isNewRoom)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
   }) {
@@ -485,7 +499,7 @@ class _$ChatRoomMessageSended implements ChatRoomMessageSended {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String room)? chatRoomOpened,
+    TResult Function(String room, bool isNewRoom)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
     required TResult orElse(),

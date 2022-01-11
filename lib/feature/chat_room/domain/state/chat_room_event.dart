@@ -5,8 +5,8 @@ part 'chat_room_event.freezed.dart';
 
 @freezed
 class ChatRoomEvent with _$ChatRoomEvent {
-  const factory ChatRoomEvent.chatRoomOpened({required String room}) =
-      ChatRoomOpened;
+  const factory ChatRoomEvent.chatRoomOpened(
+      {required String room, required bool isNewRoom}) = ChatRoomOpened;
 
   const factory ChatRoomEvent.messageFetched({required Message message}) =
       ChatRoomMessageFetched;
