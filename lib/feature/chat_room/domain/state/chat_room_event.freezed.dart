@@ -18,8 +18,10 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$ChatRoomEventTearOff {
   const _$ChatRoomEventTearOff();
 
-  ChatRoomOpened chatRoomOpened() {
-    return const ChatRoomOpened();
+  ChatRoomOpened chatRoomOpened({required String room}) {
+    return ChatRoomOpened(
+      room: room,
+    );
   }
 
   ChatRoomMessageFetched messageFetched({required Message message}) {
@@ -44,21 +46,21 @@ const $ChatRoomEvent = _$ChatRoomEventTearOff();
 mixin _$ChatRoomEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() chatRoomOpened,
+    required TResult Function(String room) chatRoomOpened,
     required TResult Function(Message message) messageFetched,
     required TResult Function(String room, String text) messageSended,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? chatRoomOpened,
+    TResult Function(String room)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? chatRoomOpened,
+    TResult Function(String room)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
     required TResult orElse(),
@@ -110,6 +112,7 @@ abstract class $ChatRoomOpenedCopyWith<$Res> {
   factory $ChatRoomOpenedCopyWith(
           ChatRoomOpened value, $Res Function(ChatRoomOpened) then) =
       _$ChatRoomOpenedCopyWithImpl<$Res>;
+  $Res call({String room});
 }
 
 /// @nodoc
@@ -122,57 +125,80 @@ class _$ChatRoomOpenedCopyWithImpl<$Res>
 
   @override
   ChatRoomOpened get _value => super._value as ChatRoomOpened;
+
+  @override
+  $Res call({
+    Object? room = freezed,
+  }) {
+    return _then(ChatRoomOpened(
+      room: room == freezed
+          ? _value.room
+          : room // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ChatRoomOpened implements ChatRoomOpened {
-  const _$ChatRoomOpened();
+  const _$ChatRoomOpened({required this.room});
+
+  @override
+  final String room;
 
   @override
   String toString() {
-    return 'ChatRoomEvent.chatRoomOpened()';
+    return 'ChatRoomEvent.chatRoomOpened(room: $room)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is ChatRoomOpened);
+        (other.runtimeType == runtimeType &&
+            other is ChatRoomOpened &&
+            const DeepCollectionEquality().equals(other.room, room));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(room));
+
+  @JsonKey(ignore: true)
+  @override
+  $ChatRoomOpenedCopyWith<ChatRoomOpened> get copyWith =>
+      _$ChatRoomOpenedCopyWithImpl<ChatRoomOpened>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() chatRoomOpened,
+    required TResult Function(String room) chatRoomOpened,
     required TResult Function(Message message) messageFetched,
     required TResult Function(String room, String text) messageSended,
   }) {
-    return chatRoomOpened();
+    return chatRoomOpened(room);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? chatRoomOpened,
+    TResult Function(String room)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
   }) {
-    return chatRoomOpened?.call();
+    return chatRoomOpened?.call(room);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? chatRoomOpened,
+    TResult Function(String room)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
     required TResult orElse(),
   }) {
     if (chatRoomOpened != null) {
-      return chatRoomOpened();
+      return chatRoomOpened(room);
     }
     return orElse();
   }
@@ -213,7 +239,12 @@ class _$ChatRoomOpened implements ChatRoomOpened {
 }
 
 abstract class ChatRoomOpened implements ChatRoomEvent {
-  const factory ChatRoomOpened() = _$ChatRoomOpened;
+  const factory ChatRoomOpened({required String room}) = _$ChatRoomOpened;
+
+  String get room;
+  @JsonKey(ignore: true)
+  $ChatRoomOpenedCopyWith<ChatRoomOpened> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -282,7 +313,7 @@ class _$ChatRoomMessageFetched implements ChatRoomMessageFetched {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() chatRoomOpened,
+    required TResult Function(String room) chatRoomOpened,
     required TResult Function(Message message) messageFetched,
     required TResult Function(String room, String text) messageSended,
   }) {
@@ -292,7 +323,7 @@ class _$ChatRoomMessageFetched implements ChatRoomMessageFetched {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? chatRoomOpened,
+    TResult Function(String room)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
   }) {
@@ -302,7 +333,7 @@ class _$ChatRoomMessageFetched implements ChatRoomMessageFetched {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? chatRoomOpened,
+    TResult Function(String room)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
     required TResult orElse(),
@@ -434,7 +465,7 @@ class _$ChatRoomMessageSended implements ChatRoomMessageSended {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() chatRoomOpened,
+    required TResult Function(String room) chatRoomOpened,
     required TResult Function(Message message) messageFetched,
     required TResult Function(String room, String text) messageSended,
   }) {
@@ -444,7 +475,7 @@ class _$ChatRoomMessageSended implements ChatRoomMessageSended {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function()? chatRoomOpened,
+    TResult Function(String room)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
   }) {
@@ -454,7 +485,7 @@ class _$ChatRoomMessageSended implements ChatRoomMessageSended {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? chatRoomOpened,
+    TResult Function(String room)? chatRoomOpened,
     TResult Function(Message message)? messageFetched,
     TResult Function(String room, String text)? messageSended,
     required TResult orElse(),

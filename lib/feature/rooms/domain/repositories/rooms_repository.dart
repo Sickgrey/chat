@@ -1,3 +1,4 @@
+import 'package:chat/app/data/entity/message.dart';
 import 'package:chat/feature/rooms/data/network/i_rooms_api.dart';
 import 'package:chat/feature/rooms/data/network/rooms_api.dart';
 import 'package:chat/feature/rooms/domain/entity/room.dart';
@@ -13,7 +14,8 @@ class RoomsRepository implements IRoomsRepository {
   }
 
   @override
-  Future<void> loadMessagesHistory({required String room}) async {
-    await roomsApi.loadMessagesHistory(room: room);
+  Future<List<Message>> loadMessagesHistory({required String room}) async {
+    final result = await roomsApi.loadMessagesHistory(room: room);
+    return result;
   }
 }

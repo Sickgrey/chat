@@ -1,3 +1,4 @@
+import 'package:chat/app/data/entity/message.dart';
 import 'package:chat/feature/rooms/data/entity/room_remote.dart';
 import 'package:chat/feature/rooms/data/network/i_rooms_api.dart';
 import 'package:dio/dio.dart';
@@ -30,7 +31,10 @@ class RoomsApi implements IRoomsApi {
   }
 
   @override
-  Future<void> loadMessagesHistory({required String room}) async {
+  Future<List<Message>> loadMessagesHistory({required String room}) async {
     final response = await dio.get('rooms/$room/history');
+    final data = response.data['result'] as List<dynamic>;
+    List<Message> list = data.map((json) => Message.fromJson(json)).toList();
+    return list;
   }
 }
