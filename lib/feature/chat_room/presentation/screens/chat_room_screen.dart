@@ -45,6 +45,7 @@ class ChatRoomScreen extends StatelessWidget {
                       Row(mainAxisAlignment: MainAxisAlignment.end, children: [
                     Expanded(
                       child: TextFormField(
+                        controller: messageController,
                         autocorrect: false,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -80,8 +81,8 @@ class _MessageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final dateTime = DateTime.parse(message.created);
-    // final date = DateFormat.yMMM(dateTime);
+    final dateTime = DateTime.parse(message.created);
+    final dateFormatted = DateFormat("dd-MM-yyyy HH:mm").format(dateTime);
     return Container(
       decoration: BoxDecoration(
         color: Colors.grey[300],
@@ -108,11 +109,16 @@ class _MessageItem extends StatelessWidget {
               child: Text(message.text),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.fromLTRB(4, 4, 8, 8),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(4, 4, 8, 8),
             child: Align(
               alignment: Alignment.bottomRight,
-              child: Text('date'),
+              child: Text(
+                dateFormatted,
+                style: const TextStyle(
+                  fontSize: 11,
+                ),
+              ),
             ),
           ),
         ],
