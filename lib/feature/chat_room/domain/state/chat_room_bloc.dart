@@ -9,10 +9,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   ChatRoomBloc({required this.chatRoomRepository})
       : super(const ChatRoomState.loading()) {
-    // _messagesSubscription.cancel();
-    // chatRoomRepository.messageStream.listen((message) {
-    //   add(ChatRoomEvent.messageFetched(message: message));
-    // });
+    _messagesSubscription.cancel();
+    chatRoomRepository.messageStream.listen((message) {
+      add(ChatRoomEvent.messageFetched(message: message));
+    });
     on<ChatRoomOpened>(_loadMessages);
     on<ChatRoomMessageFetched>(_fetchNewMessage);
     on<ChatRoomMessageSended>(_sendMessage);
