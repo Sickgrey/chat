@@ -11,4 +11,9 @@ class RoomsRepository implements IRoomsRepository {
     final result = await roomsApi.loadRoomsList();
     return result.map((remote) => Room.fromRemote(remote)).toList();
   }
+
+  @override
+  Future<void> loadMessagesHistory({required String room}) async {
+    await roomsApi.loadMessagesHistory(room: room);
+  }
 }

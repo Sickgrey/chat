@@ -1,19 +1,27 @@
 part of '../../chat_room_feature.dart';
 
 class ChatRoomScreen extends StatelessWidget {
-  const ChatRoomScreen({Key? key}) : super(key: key);
+  ChatRoomScreen({
+    Key? key,
+    required this.room,
+    required this.messages,
+  }) : super(key: key);
+
+  final String room;
+  final TextEditingController messageController = TextEditingController();
+  final List<Message> messages;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: Text(room),
       ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(left: 16, right: 24),
           child: Column(
-            children: <Widget>[
+            children: [
               Expanded(
                 child: ListView.builder(
                   itemCount: 15,

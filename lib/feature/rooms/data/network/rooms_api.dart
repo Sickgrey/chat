@@ -28,4 +28,9 @@ class RoomsApi implements IRoomsApi {
         data.map((json) => RoomRemote.fromJson(json)).toList();
     return list;
   }
+
+  @override
+  Future<void> loadMessagesHistory({required String room}) async {
+    final response = await dio.get('rooms/$room/history');
+  }
 }

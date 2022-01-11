@@ -26,8 +26,10 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 */
 
 class ChatRoomApi implements IChatRoomApi {
+  final userName = 'testName';
+
   final channel = WebSocketChannel.connect(
-    Uri.parse('wss://nane.tada.team/ws?username={username}'),
+    Uri.parse('wss://nane.tada.team/ws?username=testName'),
   );
 
   Stream<Message> get messageStream => channel.stream

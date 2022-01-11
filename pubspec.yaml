@@ -38,6 +38,9 @@ dependencies:
   # web socket
   web_socket_channel: ^2.1.0
 
+  shared_preferences: ^2.0.12
+
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,5 +1,6 @@
 library rooms_feature;
 
+import 'package:chat/feature/chat_room/chat_room_feature.dart';
 import 'package:chat/feature/rooms/domain/entity/room.dart';
 import 'package:chat/feature/rooms/domain/repositories/rooms_repository.dart';
 import 'package:chat/feature/rooms/domain/state/rooms_bloc.dart';
@@ -22,7 +23,14 @@ class RoomsFeature extends StatelessWidget {
       child: BlocBuilder<RoomsBloc, RoomsState>(builder: (context, state) {
         return state.when(
           loading: () => const AppLoading(),
-          success: (rooms) => RoomsScreen(rooms: rooms),
+          success: (rooms) => RoomsScreen(
+            rooms: rooms,
+            onRoomTap: (room) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return ChatRoomFeature(room: room);
+              }));
+            },
+          ),
           failure: () => const AppFailure(),
         );
       }),

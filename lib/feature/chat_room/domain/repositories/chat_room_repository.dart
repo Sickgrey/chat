@@ -5,7 +5,9 @@ import 'package:chat/feature/chat_room/domain/repositories/i_chat_room_repositor
 class ChatRoomRepository implements IChatRoomRepository {
   ChatRoomApi chatRoomApi = ChatRoomApi();
 
-  Stream<Message> get messageStream => chatRoomApi.messageStream;
+  Stream<Message> get messageStream async* {
+    yield* chatRoomApi.messageStream;
+  }
 
   @override
   void sendMessage({required String room, required String text}) {
