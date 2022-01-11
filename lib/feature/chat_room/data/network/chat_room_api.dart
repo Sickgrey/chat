@@ -29,7 +29,7 @@ class ChatRoomApi implements IChatRoomApi {
   final userName = 'testName';
 
   final channel = WebSocketChannel.connect(
-    Uri.parse('wss://nane.tada.team/ws?username=testName'),
+    Uri.parse('wss://nane.tada.team/ws?username={username}'),
   );
 
   Stream<Message> get messageStream => channel.stream
@@ -41,7 +41,7 @@ class ChatRoomApi implements IChatRoomApi {
       "room": room,
       "text": text,
     };
-    channel.sink.add(message);
+    channel.sink.add(jsonEncode(message));
   }
 
   @override

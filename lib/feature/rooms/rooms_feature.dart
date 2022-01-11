@@ -1,5 +1,7 @@
 library rooms_feature;
 
+import 'package:chat/app/router/app_router.dart';
+import 'package:chat/di/service_locator.dart';
 import 'package:chat/feature/chat_room/chat_room_feature.dart';
 import 'package:chat/feature/rooms/domain/entity/room.dart';
 import 'package:chat/feature/rooms/domain/repositories/rooms_repository.dart';
@@ -18,7 +20,7 @@ class RoomsFeature extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<RoomsBloc>(
-      create: (context) => RoomsBloc(roomsRepository: RoomsRepository())
+      create: (context) => RoomsBloc(roomsRepository: getIt<RoomsRepository>())
         ..add(const RoomsListOpened()),
       child: BlocBuilder<RoomsBloc, RoomsState>(builder: (context, state) {
         return state.when(
@@ -26,9 +28,8 @@ class RoomsFeature extends StatelessWidget {
           success: (rooms) => RoomsScreen(
             rooms: rooms,
             onRoomTap: (room) {
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return ChatRoomFeature(room: room);
-              }));
+              AppRouter.instance
+                  .pushScreen(context, ChatRoomFeature(room: room));
             },
           ),
           failure: () => const AppFailure(),

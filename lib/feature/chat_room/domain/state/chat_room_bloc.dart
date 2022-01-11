@@ -1,16 +1,15 @@
-import 'dart:async';
-
-import 'package:chat/app/data/entity/message.dart';
 import 'package:chat/feature/chat_room/domain/repositories/chat_room_repository.dart';
 import 'package:chat/feature/chat_room/domain/state/chat_room_event.dart';
 import 'package:chat/feature/chat_room/domain/state/chat_room_state.dart';
+import 'package:chat/feature/rooms/domain/repositories/rooms_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
-  ChatRoomBloc({required this.chatRoomRepository})
-      : super(const ChatRoomState.loading()) {
+  ChatRoomBloc({
+    required this.chatRoomRepository,
+    required this.roomsRepository,
+  }) : super(const ChatRoomState.loading()) {
     chatRoomRepository.messageStream.listen((message) {
-      print('new message: ${message.text}');
       add(ChatRoomEvent.messageFetched(message: message));
     });
     on<ChatRoomOpened>(_loadMessages);
@@ -19,6 +18,7 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   }
 
   final ChatRoomRepository chatRoomRepository;
+  final RoomsRepository roomsRepository;
 
   _fetchNewMessage(ChatRoomMessageFetched event, Emitter<ChatRoomState> emit) {
     if (state is ChatRoomSuccess) {
@@ -34,8 +34,9 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
     chatRoomRepository.sendMessage(room: event.room, text: event.text);
   }
 
-  _loadMessages(ChatRoomOpened event, Emitter<ChatRoomState> emit) {
-    final messages = <Message>[];
+  _loadMessages(ChatRoomOpened event, Emitter<ChatRoomState> emit) async {
+    final messages =
+        await roomsRepository.loadMessagesHistory(room: event.room);
     emit(ChatRoomState.success(messages: messages));
   }
 }
