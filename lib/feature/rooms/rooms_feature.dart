@@ -1,10 +1,12 @@
 library rooms_feature;
 
+import 'package:chat/feature/chat_room/chat_room_feature.dart';
 import 'package:chat/feature/rooms/domain/entity/room.dart';
 import 'package:chat/feature/rooms/domain/repositories/rooms_repository.dart';
 import 'package:chat/feature/rooms/domain/state/rooms_bloc.dart';
 import 'package:chat/feature/rooms/domain/state/rooms_event.dart';
 import 'package:chat/feature/rooms/domain/state/rooms_state.dart';
+import 'package:chat/uikit/uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,9 +22,16 @@ class RoomsFeature extends StatelessWidget {
         ..add(const RoomsListOpened()),
       child: BlocBuilder<RoomsBloc, RoomsState>(builder: (context, state) {
         return state.when(
-          loading: () => Container(),
-          success: (rooms) => RoomsScreen(rooms: rooms),
-          failure: () => Container(),
+          loading: () => const AppLoading(),
+          success: (rooms) => RoomsScreen(
+            rooms: rooms,
+            onRoomTap: (room) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return ChatRoomFeature(room: room);
+              }));
+            },
+          ),
+          failure: () => const AppFailure(),
         );
       }),
     );
