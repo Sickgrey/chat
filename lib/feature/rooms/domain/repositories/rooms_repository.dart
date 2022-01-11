@@ -3,9 +3,14 @@ import 'package:chat/feature/rooms/data/network/i_rooms_api.dart';
 import 'package:chat/feature/rooms/data/network/rooms_api.dart';
 import 'package:chat/feature/rooms/domain/entity/room.dart';
 import 'package:chat/feature/rooms/domain/repositories/i_rooms_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable()
 class RoomsRepository implements IRoomsRepository {
-  final IRoomsApi roomsApi = RoomsApi();
+  RoomsRepository({required this.roomsApi});
+
+  @override
+  final RoomsApi roomsApi;
 
   @override
   Future<List<Room>> loadRoomsList() async {

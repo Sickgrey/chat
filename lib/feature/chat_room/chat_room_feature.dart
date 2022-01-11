@@ -1,6 +1,7 @@
 library chat_room_feature;
 
 import 'package:chat/app/data/entity/message.dart';
+import 'package:chat/di/service_locator.dart';
 import 'package:chat/feature/chat_room/domain/repositories/chat_room_repository.dart';
 import 'package:chat/feature/chat_room/domain/state/chat_room_bloc.dart';
 import 'package:chat/feature/chat_room/domain/state/chat_room_event.dart';
@@ -23,7 +24,7 @@ class ChatRoomFeature extends StatelessWidget {
     return BlocProvider<ChatRoomBloc>(
       create: (context) => ChatRoomBloc(
         chatRoomRepository: ChatRoomRepository(),
-        roomsRepository: RoomsRepository(),
+        roomsRepository: getIt<RoomsRepository>(),
       )..add(ChatRoomEvent.chatRoomOpened(room: room)),
       child: BlocBuilder<ChatRoomBloc, ChatRoomState>(
         builder: (context, state) {

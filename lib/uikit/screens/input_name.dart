@@ -38,7 +38,16 @@ class _InputNameState extends State<InputName> {
                 ),
               ),
               ElevatedButton(
-                  onPressed: userName.isNotEmpty ? () {} : null,
+                  onPressed: userName.isNotEmpty
+                      ? () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const RoomsFeature(),
+                            ),
+                          );
+                        }
+                      : null,
                   child: const Text('Готово'))
             ],
           ),
