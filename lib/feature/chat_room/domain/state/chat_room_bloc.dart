@@ -10,6 +10,7 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   ChatRoomBloc({required this.chatRoomRepository})
       : super(const ChatRoomState.loading()) {
     chatRoomRepository.messageStream.listen((message) {
+      print('new message: ${message.text}');
       add(ChatRoomEvent.messageFetched(message: message));
     });
     on<ChatRoomOpened>(_loadMessages);
