@@ -40,12 +40,8 @@ class _InputNameState extends State<InputName> {
               ElevatedButton(
                   onPressed: userName.isNotEmpty
                       ? () {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RoomsFeature(),
-                            ),
-                          );
+                          AppRouter.instance
+                              .replace(context, const RoomsFeature());
                         }
                       : null,
                   child: const Text('Готово'))

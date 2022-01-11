@@ -2,14 +2,7 @@ import 'package:chat/app/data/entity/message.dart';
 import 'package:chat/app/data/network_service/dio_container.dart';
 import 'package:chat/feature/rooms/data/entity/room_remote.dart';
 import 'package:chat/feature/rooms/data/network/i_rooms_api.dart';
-import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
-
-/*
-Настройки сервера: GET https://nane.tada.team/api/settings
-Список комнат: GET https://nane.tada.team/api/rooms
-История сообщений: GET https://nane.tada.team/api/rooms/{name}/history
-*/
 
 @Injectable()
 class RoomsApi implements IRoomsApi {

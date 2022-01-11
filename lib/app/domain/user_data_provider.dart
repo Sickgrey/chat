@@ -1,9 +1,11 @@
+import 'package:injectable/injectable.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 abstract class _Keys {
   static const userName = 'user_name';
 }
 
+@Injectable()
 class UserDataProvider {
   Future<String?> getUserName() async {
     final prefs = await SharedPreferences.getInstance();

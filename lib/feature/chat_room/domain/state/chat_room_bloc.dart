@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:chat/app/data/entity/message.dart';
 import 'package:chat/feature/chat_room/domain/repositories/chat_room_repository.dart';
 import 'package:chat/feature/chat_room/domain/state/chat_room_event.dart';
 import 'package:chat/feature/chat_room/domain/state/chat_room_state.dart';
@@ -13,7 +10,6 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
     required this.roomsRepository,
   }) : super(const ChatRoomState.loading()) {
     chatRoomRepository.messageStream.listen((message) {
-      print('new message: ${message.text}');
       add(ChatRoomEvent.messageFetched(message: message));
     });
     on<ChatRoomOpened>(_loadMessages);
