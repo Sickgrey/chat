@@ -8,20 +8,12 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 @Injectable()
 class ChatRoomApi {
-  String userName = 'testName';
   late final WebSocketChannel channel;
   final UserDataProvider userDataProvider;
 
-  ChatRoomApi({required this.userDataProvider}) {
-    setUserName();
-    initWebSocketConnection();
-  }
+  ChatRoomApi({required this.userDataProvider});
 
-  Future<void> setUserName() async {
-    userName = await userDataProvider.getUserName() ?? '';
-  }
-
-  void initWebSocketConnection() {
+  void initWebSocketConnection({required String userName}) {
     channel = WebSocketChannel.connect(
       Uri.parse('wss://nane.tada.team/ws?username=$userName'),
     );

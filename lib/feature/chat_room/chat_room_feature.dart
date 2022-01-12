@@ -18,11 +18,13 @@ class ChatRoomFeature extends StatelessWidget {
   const ChatRoomFeature({
     Key? key,
     required this.room,
+    required this.userName,
     this.isNewRoom = false,
   }) : super(key: key);
 
   final String room;
   final bool isNewRoom;
+  final String userName;
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +32,7 @@ class ChatRoomFeature extends StatelessWidget {
       create: (context) => ChatRoomBloc(
         chatRoomRepository: getIt<ChatRoomRepository>(),
         roomsRepository: getIt<RoomsRepository>(),
+        userName: userName,
       )..add(ChatRoomEvent.chatRoomOpened(room: room, isNewRoom: isNewRoom)),
       child: BlocBuilder<ChatRoomBloc, ChatRoomState>(
         builder: (context, state) {

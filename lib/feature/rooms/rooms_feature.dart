@@ -29,13 +29,26 @@ class RoomsFeature extends StatelessWidget {
           loading: () => const AppLoading(),
           success: (rooms) => RoomsScreen(
             rooms: rooms,
-            onRoomTap: (room) {
-              AppRouter.instance
-                  .pushScreen(context, ChatRoomFeature(room: room));
+            onRoomTap: (room) async {
+              final userName =
+                  await getIt<UserDataProvider>().getUserName() ?? '';
+              AppRouter.instance.pushScreen(
+                  context,
+                  ChatRoomFeature(
+                    room: room,
+                    userName: userName,
+                  ));
             },
-            onCreateRoomTap: (room) {
+            onCreateRoomTap: (room) async {
+              final userName =
+                  await getIt<UserDataProvider>().getUserName() ?? '';
               AppRouter.instance.pushAndPopToRoot(
-                  context, ChatRoomFeature(room: room, isNewRoom: true));
+                  context,
+                  ChatRoomFeature(
+                    room: room,
+                    userName: userName,
+                    isNewRoom: true,
+                  ));
             },
             onLogoutTap: () {
               getIt<UserDataProvider>().setUserName(null);
