@@ -1,9 +1,13 @@
 import 'package:chat/app/data/entity/message.dart';
 import 'package:chat/feature/chat_room/data/network/chat_room_api.dart';
 import 'package:chat/feature/chat_room/domain/repositories/i_chat_room_repository.dart';
+import 'package:injectable/injectable.dart';
 
+@Injectable()
 class ChatRoomRepository implements IChatRoomRepository {
-  ChatRoomApi chatRoomApi = ChatRoomApi();
+  final ChatRoomApi chatRoomApi;
+
+  ChatRoomRepository({required this.chatRoomApi});
 
   Stream<Message> get messageStream {
     return chatRoomApi.messageStream;
@@ -15,7 +19,7 @@ class ChatRoomRepository implements IChatRoomRepository {
   }
 
   @override
-  void dispose() {
-    chatRoomApi.dispose();
+  void initWebSocketConnection() {
+    chatRoomApi.initWebSocketConnection();
   }
 }

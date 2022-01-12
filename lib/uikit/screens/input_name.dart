@@ -40,6 +40,7 @@ class _InputNameState extends State<InputName> {
               ElevatedButton(
                   onPressed: userName.isNotEmpty
                       ? () {
+                          getIt<UserDataProvider>().setUserName(userName);
                           AppRouter.instance
                               .replace(context, const RoomsFeature());
                         }

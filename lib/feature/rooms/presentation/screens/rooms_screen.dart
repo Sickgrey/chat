@@ -6,17 +6,25 @@ class RoomsScreen extends StatelessWidget {
     required this.rooms,
     required this.onRoomTap,
     required this.onCreateRoomTap,
+    required this.onLogoutTap,
   }) : super(key: key);
 
   final List<Room> rooms;
   final Function(String) onRoomTap;
   final Function(String) onCreateRoomTap;
+  final Function() onLogoutTap;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Комнаты'),
+        actions: [
+          IconButton(
+            onPressed: onLogoutTap,
+            icon: const Icon(Icons.logout),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(left: 16, right: 16),
