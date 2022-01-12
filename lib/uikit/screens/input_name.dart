@@ -13,6 +13,8 @@ class _InputNameState extends State<InputName> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Center(
         child: Padding(
@@ -20,9 +22,9 @@ class _InputNameState extends State<InputName> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text(
-                'Добро пожаловать!\nВведите своё имя',
-                style: TextStyle(fontSize: 24),
+              Text(
+                locale.welcome,
+                style: const TextStyle(fontSize: 24),
               ),
               Padding(
                 padding: const EdgeInsets.all(16),
@@ -38,14 +40,17 @@ class _InputNameState extends State<InputName> {
                 ),
               ),
               ElevatedButton(
-                  onPressed: userName.isNotEmpty
-                      ? () {
-                          getIt<UserDataProvider>().setUserName(userName);
-                          AppRouter.instance
-                              .replace(context, const RoomsFeature());
-                        }
-                      : null,
-                  child: const Text('Готово'))
+                onPressed: userName.isNotEmpty
+                    ? () {
+                        getIt<UserDataProvider>().setUserName(userName);
+                        AppRouter.instance.replace(
+                          context,
+                          const RoomsFeature(),
+                        );
+                      }
+                    : null,
+                child: Text(locale.ready),
+              ),
             ],
           ),
         ),

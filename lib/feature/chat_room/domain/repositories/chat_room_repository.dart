@@ -5,9 +5,9 @@ import 'package:injectable/injectable.dart';
 
 @Injectable()
 class ChatRoomRepository implements IChatRoomRepository {
-  final ChatRoomApi chatRoomApi;
-
   ChatRoomRepository({required this.chatRoomApi});
+
+  final ChatRoomApi chatRoomApi;
 
   Stream<Message> get messageStream {
     return chatRoomApi.messageStream;

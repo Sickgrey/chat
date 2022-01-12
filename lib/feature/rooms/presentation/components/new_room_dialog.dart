@@ -17,6 +17,8 @@ class _NewRoomDialogState extends State<NewRoomDialog> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
     return Scaffold(
       backgroundColor: Colors.transparent,
       body: Center(
@@ -32,9 +34,9 @@ class _NewRoomDialogState extends State<NewRoomDialog> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                const Text(
-                  'Введите имя комнаты',
-                  style: TextStyle(
+                Text(
+                  locale.enterRoomName,
+                  style: const TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.w700,
                   ),
@@ -56,7 +58,7 @@ class _NewRoomDialogState extends State<NewRoomDialog> {
                         onPressed: () {
                           AppRouter.instance.pop(context);
                         },
-                        child: const Text('Назад'),
+                        child: Text(locale.back),
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -65,7 +67,7 @@ class _NewRoomDialogState extends State<NewRoomDialog> {
                         onPressed: roomName.isNotEmpty
                             ? () => widget.onCreateRoomTap(roomName)
                             : null,
-                        child: const Text('Создать'),
+                        child: Text(locale.create),
                       ),
                     ),
                   ],

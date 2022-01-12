@@ -5,19 +5,21 @@ class AppFailure extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            Icon(
+          children: [
+            const Icon(
               Icons.error,
               size: 64,
               color: Colors.red,
             ),
             Text(
-              'Error',
-              style: TextStyle(fontSize: 24, color: Colors.red),
+              locale.error,
+              style: const TextStyle(fontSize: 24, color: Colors.red),
             ),
           ],
         ),
