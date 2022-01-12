@@ -9,7 +9,7 @@ class AppRouter with AppScreenRouter {
 
   static late AppRouter instance;
 
-  static void init({int initialTab = 0}) {
+  static void init() {
     instance = AppRouter._();
   }
 }

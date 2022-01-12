@@ -8,19 +8,19 @@ import 'package:web_socket_channel/web_socket_channel.dart';
 
 @Injectable()
 class ChatRoomApi {
-  late final WebSocketChannel channel;
-  final UserDataProvider userDataProvider;
-
   ChatRoomApi({required this.userDataProvider});
+
+  final UserDataProvider userDataProvider;
+  late final WebSocketChannel channel;
+
+  Stream<Message> get messageStream => channel.stream
+      .map<Message>((value) => Message.fromJson(jsonDecode(value)));
 
   void initWebSocketConnection({required String userName}) {
     channel = WebSocketChannel.connect(
       Uri.parse('wss://nane.tada.team/ws?username=$userName'),
     );
   }
-
-  Stream<Message> get messageStream => channel.stream
-      .map<Message>((value) => Message.fromJson(jsonDecode(value)));
 
   void sendMessage({required String room, required String text}) {
     final message = {
