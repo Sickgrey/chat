@@ -9,7 +9,7 @@ abstract class _Keys {
 class UserDataProvider {
   Future<String?> getUserName() async {
     final prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_Keys.userName) as String;
+    return prefs.getString(_Keys.userName);
   }
 
   Future<void> setUserName(String? userName) async {

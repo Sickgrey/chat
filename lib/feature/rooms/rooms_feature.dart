@@ -1,5 +1,6 @@
 library rooms_feature;
 
+import 'package:chat/app/domain/user_data_provider.dart';
 import 'package:chat/app/router/app_router.dart';
 import 'package:chat/di/service_locator.dart';
 import 'package:chat/feature/chat_room/chat_room_feature.dart';
@@ -35,6 +36,10 @@ class RoomsFeature extends StatelessWidget {
             onCreateRoomTap: (room) {
               AppRouter.instance.pushAndPopToRoot(
                   context, ChatRoomFeature(room: room, isNewRoom: true));
+            },
+            onLogoutTap: () {
+              getIt<UserDataProvider>().setUserName(null);
+              AppRouter.instance.replace(context, const InputName());
             },
           ),
           failure: () => const AppFailure(),
