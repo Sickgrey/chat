@@ -12,6 +12,10 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   }) : super(const ChatRoomState.loading()) {
     chatRoomRepository.messageStream.listen((message) {
       add(ChatRoomEvent.messageFetched(message: message));
+    }, onDone: () {
+      chatRoomRepository.initWebSocketConnection();
+    }, onError: (error) {
+      chatRoomRepository.initWebSocketConnection();
     });
     on<ChatRoomOpened>(_loadMessages);
     on<ChatRoomMessageFetched>(_fetchNewMessage);

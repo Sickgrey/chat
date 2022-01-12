@@ -28,7 +28,7 @@ class ChatRoomFeature extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<ChatRoomBloc>(
       create: (context) => ChatRoomBloc(
-        chatRoomRepository: ChatRoomRepository(),
+        chatRoomRepository: getIt<ChatRoomRepository>(),
         roomsRepository: getIt<RoomsRepository>(),
       )..add(ChatRoomEvent.chatRoomOpened(room: room, isNewRoom: isNewRoom)),
       child: BlocBuilder<ChatRoomBloc, ChatRoomState>(
