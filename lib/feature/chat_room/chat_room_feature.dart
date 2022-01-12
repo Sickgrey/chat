@@ -7,6 +7,7 @@ import 'package:chat/feature/chat_room/domain/state/chat_room_bloc.dart';
 import 'package:chat/feature/chat_room/domain/state/chat_room_event.dart';
 import 'package:chat/feature/chat_room/domain/state/chat_room_state.dart';
 import 'package:chat/feature/rooms/domain/repositories/rooms_repository.dart';
+import 'package:chat/l10n/generated/app_localizations.dart';
 import 'package:chat/uikit/uikit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

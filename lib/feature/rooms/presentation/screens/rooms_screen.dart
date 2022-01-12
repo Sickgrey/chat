@@ -16,9 +16,11 @@ class RoomsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Комнаты'),
+        title: Text(locale.rooms),
         actions: [
           IconButton(
             onPressed: onLogoutTap,

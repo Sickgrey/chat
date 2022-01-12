@@ -13,6 +13,8 @@ class ChatRoomScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(room),
@@ -35,9 +37,7 @@ class ChatRoomScreen extends StatelessWidget {
                           );
                         },
                       )
-                    : const Center(
-                        child: Text('Сообщений нет'),
-                      ),
+                    : Center(child: Text(locale.noMessages)),
               ),
               Container(
                   padding: const EdgeInsets.only(top: 4),
