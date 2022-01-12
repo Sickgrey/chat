@@ -36,9 +36,13 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   }
 
   _loadMessages(ChatRoomOpened event, Emitter<ChatRoomState> emit) async {
-    final messages = event.isNewRoom
-        ? <Message>[]
-        : await roomsRepository.loadMessagesHistory(room: event.room);
-    emit(ChatRoomState.success(messages: messages));
+    try {
+      final messages = event.isNewRoom
+          ? <Message>[]
+          : await roomsRepository.loadMessagesHistory(room: event.room);
+      emit(ChatRoomState.success(messages: messages));
+    } catch (e) {
+      emit(const ChatRoomState.failure());
+    }
   }
 }
