@@ -9,13 +9,15 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
   ChatRoomBloc({
     required this.chatRoomRepository,
     required this.roomsRepository,
+    required this.userName,
   }) : super(const ChatRoomState.loading()) {
+    chatRoomRepository.initWebSocketConnection(userName: userName);
     chatRoomRepository.messageStream.listen((message) {
       add(ChatRoomEvent.messageFetched(message: message));
     }, onDone: () {
-      chatRoomRepository.initWebSocketConnection();
+      chatRoomRepository.initWebSocketConnection(userName: userName);
     }, onError: (error) {
-      chatRoomRepository.initWebSocketConnection();
+      chatRoomRepository.initWebSocketConnection(userName: userName);
     });
     on<ChatRoomOpened>(_loadMessages);
     on<ChatRoomMessageFetched>(_fetchNewMessage);
@@ -24,6 +26,7 @@ class ChatRoomBloc extends Bloc<ChatRoomEvent, ChatRoomState> {
 
   final ChatRoomRepository chatRoomRepository;
   final RoomsRepository roomsRepository;
+  final String userName;
 
   _fetchNewMessage(ChatRoomMessageFetched event, Emitter<ChatRoomState> emit) {
     if (state is ChatRoomSuccess) {

@@ -19,7 +19,7 @@ class ChatRoomRepository implements IChatRoomRepository {
   }
 
   @override
-  void initWebSocketConnection() {
-    chatRoomApi.initWebSocketConnection();
+  void initWebSocketConnection({required String userName}) {
+    chatRoomApi.initWebSocketConnection(userName: userName);
   }
 }
