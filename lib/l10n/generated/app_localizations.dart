@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
@@ -8,14 +7,14 @@ import 'package:intl/intl.dart' as intl;
 
 import 'app_localizations_ru.dart';
 
-/// Callers can lookup localized strings with an instance of AppLocalizations returned
-/// by `AppLocalizations.of(context)`.
+/// Callers can lookup localized strings with an instance of AppLocalizations
+/// returned by `AppLocalizations.of(context)`.
 ///
 /// Applications need to include `AppLocalizations.delegate()` in their app's
-/// localizationDelegates list, and the locales they support in the app's
-/// supportedLocales list. For example:
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
 ///
-/// ```
+/// ```dart
 /// import 'generated/app_localizations.dart';
 ///
 /// return MaterialApp(
@@ -30,14 +29,14 @@ import 'app_localizations_ru.dart';
 /// Please make sure to update your pubspec.yaml to include the following
 /// packages:
 ///
-/// ```
+/// ```yaml
 /// dependencies:
 ///   # Internationalization support.
 ///   flutter_localizations:
 ///     sdk: flutter
 ///   intl: any # Use the pinned version from flutter_localizations
 ///
-///   # rest of dependencies
+///   # Rest of dependencies
 /// ```
 ///
 /// ## iOS Applications
@@ -92,53 +91,11 @@ abstract class AppLocalizations {
     Locale('ru')
   ];
 
-  /// No description provided for @noMessages.
+  /// No description provided for @chatLog.
   ///
   /// In ru, this message translates to:
-  /// **'Сообщений нет'**
-  String get noMessages;
-
-  /// No description provided for @enterRoomName.
-  ///
-  /// In ru, this message translates to:
-  /// **'Введите имя комнаты'**
-  String get enterRoomName;
-
-  /// No description provided for @back.
-  ///
-  /// In ru, this message translates to:
-  /// **'Назад'**
-  String get back;
-
-  /// No description provided for @create.
-  ///
-  /// In ru, this message translates to:
-  /// **'Создать'**
-  String get create;
-
-  /// No description provided for @rooms.
-  ///
-  /// In ru, this message translates to:
-  /// **'Комнаты'**
-  String get rooms;
-
-  /// No description provided for @error.
-  ///
-  /// In ru, this message translates to:
-  /// **'Ошибка'**
-  String get error;
-
-  /// No description provided for @welcome.
-  ///
-  /// In ru, this message translates to:
-  /// **'Добро пожаловать!\nВведите своё имя'**
-  String get welcome;
-
-  /// No description provided for @ready.
-  ///
-  /// In ru, this message translates to:
-  /// **'Готово'**
-  String get ready;
+  /// **'Лог чата'**
+  String get chatLog;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
