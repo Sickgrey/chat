@@ -13,19 +13,19 @@ abstract class Message extends Equatable {
   final String created;
   final Sender sender;
   final String text;
-  final String id;
+  final String? id;
 
   Message({
     required this.room,
     required this.created,
     required this.sender,
     required this.text,
-    required this.id,
+    this.id,
   });
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    data['id'] = this.id;
+    data['id'] = this.id ?? null;
     data['room'] = this.room;
     data['created'] = this.created;
     data['sender'] = this.sender.toJson();
@@ -35,7 +35,7 @@ abstract class Message extends Equatable {
   }
 
   @override
-  List<Object> get props => [room, created, sender, text, id];
+  List<Object?> get props => [room, created, sender, text, id];
 
   @override
   String toString() {
@@ -49,7 +49,7 @@ class ReceivedMessage extends Message {
     required String created,
     required Sender sender,
     required String text,
-    required String id,
+    String? id,
   }) : super(
           room: room,
           created: created,
@@ -60,7 +60,7 @@ class ReceivedMessage extends Message {
 
   factory ReceivedMessage.fromJson(Map<String, dynamic> json) {
     return ReceivedMessage(
-      id: json['id'],
+      id: json['id'] as String?,
       room: json['room'],
       created: json['created'],
       sender: Sender.fromJson(json['sender']),
@@ -77,7 +77,7 @@ class UserMessage extends Message {
     required String created,
     required Sender sender,
     required String text,
-    required String id,
+    String? id,
     this.isSent = false,
   }) : super(
           room: room,
@@ -90,7 +90,7 @@ class UserMessage extends Message {
   factory UserMessage.fromJson(Map<String, dynamic> json) {
     return UserMessage(
       isSent: true,
-      id: json['id'],
+      id: json['id'] as String?,
       room: json['room'],
       created: json['created'],
       sender: Sender.fromJson(json['sender']),
