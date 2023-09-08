@@ -21,7 +21,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: BlocProvider(create: (context) => LoginBloc(), child: Login()),
+      home: BlocProvider(
+        create: (context) => LoginBloc(),
+        child: LoginScreen(),
+      ),
     );
   }
 }
