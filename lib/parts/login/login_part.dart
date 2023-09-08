@@ -2,6 +2,7 @@ library login_part;
 
 import 'dart:async';
 
+import 'package:chat/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:chat/sevices/connectivity_check.dart';

@@ -20,6 +20,8 @@ class _LoginFormInputState extends State<LoginFormInput> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.l10n;
+
     return Scaffold(
         body: Center(
       child: Card(
@@ -40,11 +42,10 @@ class _LoginFormInputState extends State<LoginFormInput> {
                     //  TODO: check null value
                     if (!RegExp(r'^[A-Za-z0-9А-ЯЁа-яё -]{3,20}$')
                         .hasMatch(value!))
-                      return 'Пожалуйста введите от 3 до 20 символов без спец.знаков';
+                      return locale.nicknameValidationError;
                     return null;
                   },
-                  decoration:
-                      const InputDecoration(labelText: 'Имя пользователя'),
+                  decoration: InputDecoration(labelText: locale.username),
                   onSaved: (value) {
                     //  TODO: check null value
                     _userName = value!;
@@ -52,7 +53,7 @@ class _LoginFormInputState extends State<LoginFormInput> {
                 ),
                 SizedBox(height: 12),
                 OutlinedButton(
-                  child: const Text('Вход'),
+                  child: Text(locale.login),
                   onPressed: _trySubmit,
                 ),
               ],

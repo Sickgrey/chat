@@ -1,4 +1,17 @@
 {
     "chatLog": "Лог чата",
-    "rooms": "Комнаты"
+    "rooms": "Комнаты",
+    "sendAMessage": "Отправить сообщение...",
+    "youAreOffline": "Вы находитесь в оффлайн режиме",
+    "networkConnectionError": "Ошибка, проверьте подключение к интернету",
+    "tryAgain": "Ещё раз",
+    "nicknameValidationError": "Пожалуйста введите от 3 до 20 символов без спец.знаков",
+    "username": "Имя пользователя",
+    "login": "Вход",
+    "createRoom": "Создать комнату",
+    "roomName": "Имя комнаты",
+    "roomNameMinLengthError": "Пожалуйста введите более 3-х символов",
+    "roomNameMaxLengthError": "Имя не должно содержать больше 20 символов",
+    "connectionLost": "соединение потеряно, переподключение...",
+    "connectionRestored": "соединение восстановлено"
 }

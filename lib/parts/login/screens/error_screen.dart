@@ -7,17 +7,19 @@ class ErrorScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.l10n;
+
     return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Text(
-              'Ошибка, проверьте подключение к интернету',
+              locale.networkConnectionError,
               style: TextStyle(color: Colors.red),
             ),
             OutlinedButton(
-              child: const Text('Еще раз'),
+              child: Text(locale.tryAgain),
               onPressed: onRetryTapped,
             ),
           ],

@@ -18,6 +18,8 @@ class _MessageInputState extends State<MessageInput> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.l10n;
+
     return Container(
       padding: EdgeInsets.only(bottom: 20, top: 20),
       child: Column(
@@ -30,8 +32,7 @@ class _MessageInputState extends State<MessageInput> {
                   textCapitalization: TextCapitalization.sentences,
                   autocorrect: true,
                   enableSuggestions: true,
-                  decoration:
-                      InputDecoration(hintText: 'Отправить сообщение...'),
+                  decoration: InputDecoration(hintText: locale.sendAMessage),
                 ),
               ),
               IconButton(
@@ -53,7 +54,7 @@ class _MessageInputState extends State<MessageInput> {
           if (!widget.isConnected)
             Padding(
               padding: const EdgeInsets.only(top: 8),
-              child: Text('Вы находитесь в оффлайн режиме'),
+              child: Text(locale.youAreOffline),
             )
         ],
       ),

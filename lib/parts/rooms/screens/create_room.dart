@@ -37,10 +37,10 @@ class _CreateRoomState extends State<CreateRoom> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = context.l10n;
+
     return Scaffold(
-        appBar: AppBar(
-          title: Text("Создать комнату"),
-        ),
+        appBar: AppBar(title: Text(locale.createRoom)),
         body: Center(
           child: Card(
             margin: EdgeInsets.all(20),
@@ -60,9 +60,9 @@ class _CreateRoomState extends State<CreateRoom> {
                         //  TODO: refactor
                         if (value != null) {
                           if (value.isEmpty || value.length < 3) {
-                            return 'Пожалуйста введите более 3-х символов';
+                            return locale.roomNameMinLengthError;
                           } else if (value.length > 20) {
-                            return 'Имя не должно содержать больше 20 символов';
+                            return locale.roomNameMaxLengthError;
                           } else {
                             return value;
                           }
@@ -70,8 +70,7 @@ class _CreateRoomState extends State<CreateRoom> {
                           return value;
                         }
                       },
-                      decoration:
-                          const InputDecoration(labelText: 'Имя комнаты'),
+                      decoration: InputDecoration(labelText: locale.roomName),
                       onSaved: (value) {
                         //  TODO: null check
                         _roomName = value!;
@@ -79,7 +78,7 @@ class _CreateRoomState extends State<CreateRoom> {
                     ),
                     SizedBox(height: 12),
                     OutlinedButton(
-                      child: const Text('Создать комнату'),
+                      child: Text(locale.createRoom),
                       onPressed: _tryCreate,
                     ),
                   ],

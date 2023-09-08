@@ -20,10 +20,12 @@ class Rooms extends StatelessWidget {
                 ..hideCurrentSnackBar()
                 ..showSnackBar(
                   SnackBar(
-                      content: Text(
-                          _state.connectionStatus == ConnectionStatus.connecting
-                              ? 'соединение потеряно, переподключение...'
-                              : 'соединение восстановлено')),
+                    content: Text(
+                      _state.connectionStatus == ConnectionStatus.connecting
+                          ? locale.connectionLost
+                          : locale.connectionRestored,
+                    ),
+                  ),
                 );
             },
             listenWhen: (previous, current) =>
