@@ -7,8 +7,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final User user;
   final ChatRepository chatRepository;
   final MessageRepository messageRepository;
-  StreamSubscription? messageSubscription;
-  StreamSubscription? connectionStatusSubscription;
+  StreamSubscription<Message>? messageSubscription;
+  StreamSubscription<ConnectionStatus>? connectionStatusSubscription;
 
   ChatBloc({
     required this.room,

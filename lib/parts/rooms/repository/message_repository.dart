@@ -23,7 +23,7 @@ class MessageRepository {
     return _messages.stream;
   }
 
-  Stream get connectionStatusStream =>
+  Stream<ConnectionStatus> get connectionStatusStream =>
       _connectivityCheckService.connectionStream;
 
   void sendMessage(Message message) {

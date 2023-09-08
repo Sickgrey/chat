@@ -14,7 +14,7 @@ class ConnectivityCheckService {
   ConnectivityCheckService({required this.pingDuration, required this.hosts})
       : assert(hosts.isNotEmpty);
 
-  Stream get connectionStream async* {
+  Stream<ConnectionStatus> get connectionStream async* {
     if (_tickerSubscription == null) {
       yield await connectivityCheck(hosts);
       _checkConnection();
