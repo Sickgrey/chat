@@ -3,13 +3,15 @@ part of rooms_part;
 class Rooms extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final locale = context.l10n;
+
     return Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.logout),
             onPressed: () => context.read<LoginBloc>().add(LoginExited()),
           ),
-          title: Text("Комнаты"),
+          title: Text(locale.rooms),
         ),
         body: BlocConsumer<RoomsBloc, RoomsState>(
             listener: (context, state) {

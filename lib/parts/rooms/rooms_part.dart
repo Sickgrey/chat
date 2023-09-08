@@ -3,6 +3,7 @@ library rooms_part;
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:chat/l10n/l10n.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:equatable/equatable.dart';
