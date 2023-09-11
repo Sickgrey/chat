@@ -1,9 +1,14 @@
 part of login_part;
 
+/// {@template errorScreen}
+/// Error screen.
+/// {@endtemplate}
 class ErrorScreen extends StatelessWidget {
+  /// Retry callback.
   final VoidCallback onRetryTapped;
 
-  const ErrorScreen({required this.onRetryTapped});
+  /// {@macro errorScreen}
+  const ErrorScreen({super.key, required this.onRetryTapped});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,10 @@
 part of login_part;
 
+/// {@template loginBloc}
+/// Login control bloc.
+/// {@endtemplate}
 class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
+  /// {@macro loginBloc}
   LoginBloc() : super(LoginInput()) {
     on(_onLoginSubmitted);
     on(_onLoginRetried);

@@ -1,21 +1,36 @@
 part of login_part;
 
-abstract class LoginEvent extends Equatable {
+/// {@template loginEvent}
+/// Abstract event class for [LoginBloc].
+/// {@endtemplate}
+abstract class LoginEvent {
+  /// {@macro loginEvent}
   const LoginEvent();
-
-  @override
-  List<Object> get props => [];
 }
 
+/// {@template loginSubmitted}
+/// Login submitted event.
+/// {@endtemplate}
 class LoginSubmitted extends LoginEvent {
+  /// Username.
   final String username;
 
+  /// {@macro loginSubmitted}
   const LoginSubmitted({required this.username});
-
-  @override
-  List<Object> get props => [username];
 }
 
-class LoginRetried extends LoginEvent {}
+/// {@template loginRetried}
+/// Login retried event.
+/// {@endtemplate}
+class LoginRetried extends LoginEvent {
+  /// {@macro loginRetried}
+  const LoginRetried();
+}
 
-class LoginExited extends LoginEvent {}
+/// {@template loginExited}
+/// Login exited event.
+/// {@endtemplate}
+class LoginExited extends LoginEvent {
+  /// {@macro loginExited}
+  const LoginExited();
+}

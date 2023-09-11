@@ -1,6 +1,12 @@
 part of login_part;
 
+/// {@template loginFormInput}
+/// Login input form.
+/// {@endtemplate}
 class LoginFormInput extends StatefulWidget {
+  /// {@macro loginFormInput}
+  const LoginFormInput({super.key});
+
   @override
   _LoginFormInputState createState() => _LoginFormInputState();
 }
