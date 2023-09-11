@@ -1,9 +1,14 @@
 part of chat_part;
 
+/// {@template chatMain}
+/// Chat main screen.
+/// {@endtemplate}
 class ChatMain extends StatelessWidget {
+  /// Chat state.
   final ChatLoadSuccess state;
 
-  ChatMain({super.key, required this.state});
+  /// {@macro chatMain}
+  const ChatMain({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +36,16 @@ class ChatMain extends StatelessWidget {
                 child: ListView.builder(
                   itemCount: state.messages.length,
                   reverse: true,
-                  itemBuilder: (context, index) =>
-                      MessageBubble(message: state.messages[index]),
+                  itemBuilder: (context, index) => MessageBubble(
+                    message: state.messages[index],
+                  ),
                 ),
               ),
               MessageInput(
                 isConnected: state.connectionStatus == ConnectionStatus.active,
-                onMessageEntered: (text) =>
-                    context.read<ChatBloc>().add(ChatMessageSent(text: text)),
+                onMessageEntered: (text) => context.readChatBloc.add(
+                  ChatMessageSent(text: text),
+                ),
               ),
             ],
           ),

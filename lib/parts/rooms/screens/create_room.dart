@@ -18,20 +18,24 @@ class _CreateRoomState extends State<CreateRoom> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       if (FocusScope.of(context).hasFocus) FocusScope.of(context).unfocus();
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(
           builder: (_) => RepositoryProvider.value(
-                value: context.read<MessageRepository>(),
-                child: BlocProvider(
-                  create: (context) => ChatBloc(
-                      messageRepository: context.read<MessageRepository>(),
-                      room: _roomName,
-                      user: widget.user,
-                      chatRepository:
-                          ChatRepository(chatDataProvider: ChatDataProvider()))
-                    ..add(ChatFetched(isRoomNew: true)),
-                  child: Chat(),
+            value: context.read<MessageRepository>(),
+            child: BlocProvider(
+              create: (context) => ChatBloc(
+                messageRepository: context.read<MessageRepository>(),
+                room: _roomName,
+                user: widget.user,
+                chatRepository: ChatRepository(
+                  chatDataProvider: ChatDataProvider(),
                 ),
-              )));
+              )..add(ChatFetched(isRoomNew: true)),
+              child: Chat(),
+            ),
+          ),
+        ),
+      );
     }
   }
 

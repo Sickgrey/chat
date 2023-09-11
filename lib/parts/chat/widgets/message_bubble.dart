@@ -1,9 +1,14 @@
 part of chat_part;
 
+/// {@template messageBubble}
+/// Chat message bubble.
+/// {@endtemplate}
 class MessageBubble extends StatelessWidget {
+  /// Message.
   final Message message;
 
-  MessageBubble({super.key, required this.message});
+  /// {@macro messageBubble}
+  const MessageBubble({super.key, required this.message});
 
   @override
   Widget build(BuildContext context) {

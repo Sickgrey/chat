@@ -2,14 +2,29 @@ part of chat_part;
 
 const String greetingsText = 'Всем чмоки!';
 
+/// {@template chatBloc}
+/// Chat control bloc.
+/// {@endtemplate}
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
+  /// Room name.
   final String room;
+
+  /// User.
   final User user;
+
+  /// Instance of [ChatRepository].
   final ChatRepository chatRepository;
+
+  /// Instance of [MessageRepository].
   final MessageRepository messageRepository;
+
+  /// Subscription to events to receive message.
   StreamSubscription<Message>? messageSubscription;
+
+  /// Subscription to events to update [ConnectionStatus].
   StreamSubscription<ConnectionStatus>? connectionStatusSubscription;
 
+  /// {@macro chatBloc}
   ChatBloc({
     required this.room,
     required this.user,
@@ -157,4 +172,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     connectionStatusSubscription?.cancel();
     return super.close();
   }
+}
+
+/// Context extension for quick access to [ChatBloc].
+extension ChatBlocBuildContextX on BuildContext {
+  /// Instance of [ChatBloc].
+  ChatBloc get readChatBloc => read<ChatBloc>();
 }

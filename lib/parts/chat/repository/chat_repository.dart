@@ -1,19 +1,28 @@
 part of chat_part;
 
-class ChatRepository {
-  final ChatDataProvider chatDataProvider;
+/// {@template chatRepository}
+/// Implementation of [IChatRepository] with production functionality.
+/// {@endtemplate}
+class ChatRepository extends IChatRepository {
+  /// Instance of [IChatDataProvider].
+  final IChatDataProvider chatDataProvider;
 
-  const ChatRepository({required this.chatDataProvider});
+  /// {@macro chatRepository}
+  ChatRepository({required this.chatDataProvider});
 
+  @override
   Future<List<Message>> downloadChatHistory(
-      String username, String room) async {
-    Map<String, dynamic> json =
-        await chatDataProvider.downloadChatHistory(room);
-    if (json['result'] != null)
+    String username,
+    String room,
+  ) async {
+    final json = await chatDataProvider.downloadChatHistory(room);
+
+    if (json['result'] != null) {
       return (json['result'] as List)
           .map((e) => parseMessage(e, username))
           .toList();
-    else
+    } else {
       return [];
+    }
   }
 }

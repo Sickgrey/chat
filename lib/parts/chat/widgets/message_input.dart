@@ -1,9 +1,16 @@
 part of chat_part;
 
+/// {@template messageInput}
+/// Message input field.
+/// {@endtemplate}
 class MessageInput extends StatefulWidget {
+  /// Message send callback.
   final ValueChanged<String> onMessageEntered;
+
+  /// Chat is conntected.
   final bool isConnected;
 
+  /// {@macro messageInput}
   const MessageInput({
     required this.onMessageEntered,
     required this.isConnected,

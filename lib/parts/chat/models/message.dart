@@ -15,7 +15,7 @@ abstract class Message extends Equatable {
   final String text;
   final String? id;
 
-  Message({
+  const Message({
     required this.room,
     required this.created,
     required this.sender,
@@ -44,7 +44,7 @@ abstract class Message extends Equatable {
 }
 
 class ReceivedMessage extends Message {
-  ReceivedMessage({
+  const ReceivedMessage({
     required String room,
     required String created,
     required Sender sender,
@@ -72,7 +72,7 @@ class ReceivedMessage extends Message {
 class UserMessage extends Message {
   final bool isSent;
 
-  UserMessage({
+  const UserMessage({
     required String room,
     required String created,
     required Sender sender,

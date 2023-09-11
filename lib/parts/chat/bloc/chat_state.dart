@@ -1,21 +1,42 @@
 part of chat_part;
 
+/// {@template chatState}
+/// Abstract state class for [ChatBloc].
+/// {@endtemplate}
 abstract class ChatState extends Equatable {
+  /// {@macro chatState}
   const ChatState();
 
   @override
   List<Object> get props => [];
 }
 
-class ChatInitial extends ChatState {}
+/// {@template chatInitial}
+/// Initial state.
+/// {@endtemplate}
+class ChatInitial extends ChatState {
+  /// {@macro chatInitial}
+  const ChatInitial();
+}
 
+/// {@template chatLoadSuccess}
+/// Load success state.
+/// {@endtemplate}
 class ChatLoadSuccess extends ChatState {
+  /// Connection status.
   final ConnectionStatus connectionStatus;
+
+  /// List of messages.
   final List<Message> messages;
+
+  /// User.
   final User user;
+
+  /// Room name.
   final String room;
 
-  ChatLoadSuccess({
+  /// {@macro chatLoadSuccess}
+  const ChatLoadSuccess({
     required this.connectionStatus,
     required this.room,
     required this.messages,
@@ -25,15 +46,15 @@ class ChatLoadSuccess extends ChatState {
   @override
   List<Object> get props => [connectionStatus, messages, user, room];
 
+  /// Current state update function.
   ChatLoadSuccess copyWith({
     ConnectionStatus? connectionStatus,
     List<Message>? messages,
-  }) {
-    return ChatLoadSuccess(
-      room: room,
-      connectionStatus: connectionStatus ?? this.connectionStatus,
-      messages: messages ?? this.messages,
-      user: user,
-    );
-  }
+  }) =>
+      ChatLoadSuccess(
+        room: room,
+        connectionStatus: connectionStatus ?? this.connectionStatus,
+        messages: messages ?? this.messages,
+        user: user,
+      );
 }
