@@ -1,11 +1,22 @@
 part of rooms_part;
 
+/// {@template roomsBloc}
+/// Rooms control bloc.
+/// {@endtemplate}
 class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
-  final RoomsRepository roomsRepository;
-  final MessageRepository messageRepository;
-  StreamSubscription? messageSubscription;
-  StreamSubscription? connectionStatusSubscription;
+  /// Instance of [IRoomsRepository].
+  final IRoomsRepository roomsRepository;
 
+  /// Instance of [IMessageRepository].
+  final IMessageRepository messageRepository;
+
+  /// Subscription to events to receive message.
+  StreamSubscription<Message>? messageSubscription;
+
+  /// Subscription to events to update [ConnectionStatus].
+  StreamSubscription<ConnectionStatus>? connectionStatusSubscription;
+
+  /// {@macro roomsBloc}
   RoomsBloc({
     required this.roomsRepository,
     required this.messageRepository,
@@ -117,4 +128,10 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
     connectionStatusSubscription?.cancel();
     return super.close();
   }
+}
+
+/// Context extension for quick access to [RoomsBloc].
+extension RoomsBlocBuildContextX on BuildContext {
+  /// Instance of [RoomsBloc].
+  RoomsBloc get readRoomsBloc => read<RoomsBloc>();
 }

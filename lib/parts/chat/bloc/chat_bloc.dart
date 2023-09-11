@@ -12,11 +12,11 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   /// User.
   final User user;
 
-  /// Instance of [ChatRepository].
-  final ChatRepository chatRepository;
+  /// Instance of [IChatRepository].
+  final IChatRepository chatRepository;
 
-  /// Instance of [MessageRepository].
-  final MessageRepository messageRepository;
+  /// Instance of [IMessageRepository].
+  final IMessageRepository messageRepository;
 
   /// Subscription to events to receive message.
   StreamSubscription<Message>? messageSubscription;

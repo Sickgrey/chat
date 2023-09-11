@@ -54,3 +54,9 @@ class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
       return null;
   }
 }
+
+/// Context extension for quick access to [LoginBloc].
+extension LoginBlocBuildContextX on BuildContext {
+  /// Instance of [LoginBloc].
+  LoginBloc get readLoginBloc => read<LoginBloc>();
+}

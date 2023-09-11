@@ -19,8 +19,7 @@ class _LoginFormInputState extends State<LoginFormInput> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       if (FocusScope.of(context).hasFocus) FocusScope.of(context).unfocus();
-      BlocProvider.of<LoginBloc>(context)
-          .add(LoginSubmitted(username: _userName));
+      context.readLoginBloc.add(LoginSubmitted(username: _userName));
     }
   }
 

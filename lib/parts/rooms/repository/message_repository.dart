@@ -1,14 +1,31 @@
 part of rooms_part;
 
-class MessageRepository {
+/// {@template messageRepository}
+/// Implementation of [IMessageRepository] with production functionality.
+/// {@endtemplate}
+class MessageRepository extends IMessageRepository {
+  /// Reconnect duration.
   final Duration reconnectDuration;
+
+  /// Ping duration.
   final Duration pingDuration;
+
+  /// User.
   final User user;
+
+  /// Messages stream controller.
   final _messages = PublishSubject<Message>();
-  final _connectivityCheckService;
+
+  /// Connectivity check service.
+  final ConnectivityCheckService _connectivityCheckService;
+
+  /// WebSocket channel.
   IOWebSocketChannel? _socket;
+
+  /// WebSocket stream subscription.
   StreamSubscription? _socketSubscription;
 
+  /// {@macro messageRepository}
   MessageRepository({
     required this.user,
     this.reconnectDuration = const Duration(seconds: 3),
@@ -16,6 +33,7 @@ class MessageRepository {
   }) : _connectivityCheckService = ConnectivityCheckService(
             pingDuration: pingDuration, hosts: ['nane.tada.team']);
 
+  @override
   Stream<Message> get messageStream {
     if (_socket == null) {
       _connect();
@@ -23,20 +41,23 @@ class MessageRepository {
     return _messages.stream;
   }
 
+  @override
   Stream<ConnectionStatus> get connectionStatusStream =>
       _connectivityCheckService.connectionStream;
 
+  @override
   void sendMessage(Message message) {
     assert(_socket != null,
         "Вебсокет не инициализирован, сначала нужно вызвать messageStream");
     _socket?.sink.add(json.encode(message.toJson()));
   }
 
+  @override
   void dispose() {
     _socketSubscription?.cancel();
     _socket?.sink.close();
     _messages.close();
-    _connectivityCheckService?.dispose();
+    _connectivityCheckService.dispose();
   }
 
   void _listen() {

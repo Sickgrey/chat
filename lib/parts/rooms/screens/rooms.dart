@@ -1,6 +1,12 @@
 part of rooms_part;
 
+/// {@template rooms}
+/// Rooms screen.
+/// {@endtemplate}
 class Rooms extends StatelessWidget {
+  /// {@macro rooms}
+  const Rooms({super.key});
+
   @override
   Widget build(BuildContext context) {
     final locale = context.l10n;
@@ -9,7 +15,7 @@ class Rooms extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             icon: Icon(Icons.logout),
-            onPressed: () => context.read<LoginBloc>().add(LoginExited()),
+            onPressed: () => context.readLoginBloc.add(LoginExited()),
           ),
           title: Text(locale.rooms),
         ),
@@ -34,9 +40,10 @@ class Rooms extends StatelessWidget {
             builder: (context, state) {
               if (state is RoomsLoadFailed)
                 return ErrorScreen(
-                    onRetryTapped: () => context
-                        .read<RoomsBloc>()
-                        .add(RoomsFetched(user: state.user)));
+                  onRetryTapped: () => context.readRoomsBloc.add(
+                    RoomsFetched(user: state.user),
+                  ),
+                );
               else if (state is RoomsLoadSuccess)
                 return RoomsDisplay(state: state);
               else

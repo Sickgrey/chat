@@ -1,9 +1,14 @@
 part of rooms_part;
 
+/// {@template roomsDisplay}
+/// Rooms display screen.
+/// {@endtemplate}
 class RoomsDisplay extends StatefulWidget {
+  /// Rooms state.
   final RoomsLoadSuccess state;
 
-  const RoomsDisplay({required this.state});
+  /// {@macro roomsDisplay}
+  const RoomsDisplay({super.key, required this.state});
 
   @override
   _RoomsDisplayState createState() => _RoomsDisplayState();
@@ -22,7 +27,7 @@ class _RoomsDisplayState extends State<RoomsDisplay> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          context.read<RoomsBloc>().add(RoomsFetched(user: widget.state.user));
+          context.readRoomsBloc.add(RoomsFetched(user: widget.state.user));
           //  TODO: remove code
           //await context.read<RoomsBloc>().first;
         },

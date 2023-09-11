@@ -26,7 +26,7 @@ class LoginScreen extends StatelessWidget {
         );
       } else if (state is LoginFailed) {
         return ErrorScreen(
-          onRetryTapped: () => context.read<LoginBloc>().add(LoginRetried()),
+          onRetryTapped: () => context.readLoginBloc.add(LoginRetried()),
         );
       } else
         return SplashScreen();
