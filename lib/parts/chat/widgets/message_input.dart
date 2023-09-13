@@ -25,6 +25,8 @@ class _MessageInputState extends State<MessageInput> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
+    final colors = theme.colors;
     final locale = context.l10n;
 
     return Container(
@@ -43,10 +45,8 @@ class _MessageInputState extends State<MessageInput> {
                 ),
               ),
               IconButton(
-                  color: Theme.of(context).primaryColor,
-                  icon: Icon(
-                    Icons.send,
-                  ),
+                  color: colors.brandFirst,
+                  icon: Icon(Icons.send),
                   onPressed: () {
                     if (_textEditingController.text.isNotEmpty) {
                       if (FocusScope.of(context).hasFocus)
