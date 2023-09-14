@@ -1,5 +1,5 @@
 import 'package:chat/l10n/l10n.dart';
-import 'package:chat/ui_kit/ui_kit.dart';
+import 'package:chat/parts/theme_selector/theme_selector_part.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +20,9 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ThemeCubit>(
-      create: (context) => ThemeCubit(),
+      create: (context) => ThemeCubit(
+        themeRepository: ThemeRepository(),
+      )..loadSavedTheme(),
       child: BlocBuilder<ThemeCubit, ThemeType>(
         builder: (context, state) => MaterialApp(
           theme: context.readThemeCubit.theme,
