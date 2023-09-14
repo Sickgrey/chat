@@ -22,15 +22,59 @@ class AppTheme {
 
     final theme = ThemeData(
       textTheme: TextTheme(),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: appColors.primaryColor,
+        error: appColors.errorColor,
+        surface: appColors.supportColor,
+        outline: appColors.black,
+        background: appColors.white,
+      ),
+      primaryColor: appColors.primaryColor,
+      primaryColorDark: appColors.primaryColorDark,
+      primaryColorLight: appColors.primaryColorLight,
+      cardColor: appColors.cardColor,
+      hintColor: appColors.hintColor,
       highlightColor: Colors.transparent,
-      splashColor: appColors.brandFirst.withOpacity(0.12),
-      appBarTheme: AppBarTheme(color: appColors.brandFirst),
+      splashColor: appColors.primaryColor.withOpacity(0.12),
+      appBarTheme: AppBarTheme(color: appColors.primaryColor),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: appColors.brandFirst,
+        backgroundColor: appColors.primaryColor,
       ),
       inputDecorationTheme: InputDecorationTheme(
-        labelStyle: TextStyle(color: appColors.brandFirst),
-        focusColor: appColors.brandFirst,
+        labelStyle: TextStyle(color: appColors.primaryColor),
+        focusColor: appColors.primaryColor,
+      ),
+    );
+
+    return theme;
+  }
+
+  static ThemeData get green {
+    final appColors = AppColors.green();
+
+    final theme = ThemeData(
+      textTheme: TextTheme(),
+      colorScheme: ColorScheme.fromSeed(
+        seedColor: appColors.primaryColor,
+        error: appColors.errorColor,
+        surface: appColors.supportColor,
+        outline: appColors.black,
+        background: appColors.white,
+      ),
+      primaryColor: appColors.primaryColor,
+      primaryColorDark: appColors.primaryColorDark,
+      primaryColorLight: appColors.primaryColorLight,
+      cardColor: appColors.cardColor,
+      hintColor: appColors.hintColor,
+      highlightColor: Colors.transparent,
+      splashColor: appColors.primaryColor.withOpacity(0.12),
+      appBarTheme: AppBarTheme(color: appColors.primaryColor),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: appColors.primaryColor,
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        labelStyle: TextStyle(color: appColors.primaryColor),
+        focusColor: appColors.primaryColor,
       ),
     );
 

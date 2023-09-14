@@ -19,13 +19,18 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: AppTheme.violet,
-      localizationsDelegates: AppLocalizations.localizationsDelegates,
-      supportedLocales: AppLocalizations.supportedLocales,
-      home: BlocProvider(
-        create: (context) => LoginBloc(),
-        child: LoginScreen(),
+    return BlocProvider<ThemeCubit>(
+      create: (context) => ThemeCubit(),
+      child: BlocBuilder<ThemeCubit, ThemeType>(
+        builder: (context, state) => MaterialApp(
+          theme: context.readThemeCubit.theme,
+          localizationsDelegates: AppLocalizations.localizationsDelegates,
+          supportedLocales: AppLocalizations.supportedLocales,
+          home: BlocProvider(
+            create: (context) => LoginBloc(),
+            child: LoginScreen(),
+          ),
+        ),
       ),
     );
   }

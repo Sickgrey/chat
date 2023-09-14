@@ -13,8 +13,6 @@ class MessageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
-    final colors = theme.colors;
-
     final isUserMessage = message is UserMessage;
 
     return Row(
@@ -25,7 +23,8 @@ class MessageBubble extends StatelessWidget {
             children: [
               Container(
                 decoration: BoxDecoration(
-                  color: isUserMessage ? colors.uiSecond : colors.uiThird,
+                  color:
+                      isUserMessage ? theme.primaryColorLight : theme.cardColor,
                   borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(12),
                     topRight: Radius.circular(12),
@@ -49,14 +48,14 @@ class MessageBubble extends StatelessWidget {
                         message.sender.username,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: colors.black,
+                          color: theme.colorScheme.outline,
                         ),
                       ),
                     Padding(
                       padding: const EdgeInsets.only(top: 4),
                       child: Text(
                         message.text,
-                        style: TextStyle(color: colors.black),
+                        style: TextStyle(color: theme.colorScheme.outline),
                         textAlign:
                             isUserMessage ? TextAlign.end : TextAlign.start,
                       ),
@@ -68,10 +67,11 @@ class MessageBubble extends StatelessWidget {
                           width: 10,
                           height: 10,
                           child: (message as UserMessage).isSent
-                              ? Icon(Icons.check, color: colors.supportFirst)
+                              ? Icon(Icons.check,
+                                  color: theme.colorScheme.surface)
                               : CircularProgressIndicator(
-                                  valueColor:
-                                      AlwaysStoppedAnimation(colors.white),
+                                  valueColor: AlwaysStoppedAnimation(
+                                      theme.colorScheme.background),
                                   strokeWidth: 2,
                                 ),
                         ),
