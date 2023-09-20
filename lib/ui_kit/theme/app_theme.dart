@@ -5,14 +5,6 @@ extension ThemeMethods on BuildContext {
   ThemeData get theme => Theme.of(this);
 }
 
-/// Extension for getting [AppColors] for a theme.
-extension ThemeColors on ThemeData {
-  ///Returns [AppColors] for the current theme's [Brightness].
-  AppColors get colors {
-    return AppColors.violet();
-  }
-}
-
 // ignore: avoid_classes_with_only_static_members
 /// Class used to store application themes styles.
 class AppTheme {
