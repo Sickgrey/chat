@@ -29,18 +29,16 @@ class _MessageInputState extends State<MessageInput> {
     final locale = context.l10n;
 
     return Container(
-      padding: EdgeInsets.only(bottom: 20, top: 20),
+      padding: EdgeInsets.only(bottom: 20, top: 8),
       child: Column(
         children: [
           Row(
             children: <Widget>[
               Expanded(
-                child: TextField(
+                child: AppTextField(
                   controller: _textEditingController,
-                  textCapitalization: TextCapitalization.sentences,
-                  autocorrect: true,
-                  enableSuggestions: true,
-                  decoration: InputDecoration(hintText: locale.sendAMessage),
+                  hintText: locale.sendAMessage,
+                  maxLines: 4,
                 ),
               ),
               IconButton(
