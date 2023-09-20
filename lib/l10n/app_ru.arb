@@ -13,5 +13,7 @@
     "roomNameMinLengthError": "Пожалуйста введите более 3-х символов",
     "roomNameMaxLengthError": "Имя не должно содержать больше 20 символов",
     "connectionLost": "соединение потеряно, переподключение...",
-    "connectionRestored": "соединение восстановлено"
+    "connectionRestored": "соединение восстановлено",
+    "theme": "Тема",
+    "logout": "Выйти"
 }

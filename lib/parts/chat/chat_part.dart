@@ -3,6 +3,7 @@ library chat_part;
 import 'dart:async';
 
 import 'package:chat/l10n/l10n.dart';
+import 'package:chat/ui_kit/ui_kit.dart';
 import 'package:equatable/equatable.dart';
 import 'package:uuid/uuid.dart';
 import 'package:chat/sevices/connectivity_check.dart';
