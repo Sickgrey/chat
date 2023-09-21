@@ -6,7 +6,7 @@
     "networkConnectionError": "Ошибка, проверьте подключение к интернету",
     "tryAgain": "Ещё раз",
     "nicknameValidationError": "Пожалуйста введите от 3 до 20 символов без спец.знаков",
-    "username": "Имя пользователя",
+    "enterUsername": "Введите имя пользователя",
     "login": "Вход",
     "createRoom": "Создать комнату",
     "roomName": "Имя комнаты",
@@ -15,5 +15,6 @@
     "connectionLost": "соединение потеряно, переподключение...",
     "connectionRestored": "соединение восстановлено",
     "theme": "Тема",
-    "logout": "Выйти"
+    "logout": "Выйти",
+    "welcome": "Добро\n пожаловать"
 }
