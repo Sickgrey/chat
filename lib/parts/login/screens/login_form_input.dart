@@ -25,20 +25,38 @@ class _LoginFormInputState extends State<LoginFormInput> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     final locale = context.l10n;
 
     return Scaffold(
         body: Center(
-      child: Card(
-        margin: EdgeInsets.all(20),
-        child: Padding(
-          padding: EdgeInsets.all(16),
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextFormField(
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                locale.welcome,
+                style: theme.textTheme.headlineMedium?.copyWith(
+                  color: theme.primaryColorDark,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 32),
+                child: Text(
+                  locale.enterUsername,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.primaryColorDark,
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: TextFormField(
                   autocorrect: true,
                   autofocus: true,
                   textCapitalization: TextCapitalization.words,
@@ -50,19 +68,43 @@ class _LoginFormInputState extends State<LoginFormInput> {
                       return locale.nicknameValidationError;
                     return null;
                   },
-                  decoration: InputDecoration(labelText: locale.username),
+                  onTapOutside: (_) =>
+                      FocusManager.instance.primaryFocus?.unfocus(),
+                  decoration: InputDecoration(
+                    contentPadding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 1, color: theme.primaryColor),
+                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(width: 1, color: theme.colorScheme.error),
+                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                    ),
+                    fillColor: theme.splashColor,
+                    filled: true,
+                  ),
                   onSaved: (value) {
                     //  TODO: check null value
                     _userName = value!;
                   },
                 ),
-                SizedBox(height: 12),
-                OutlinedButton(
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 24),
+                child: AppOutlinedButton(
+                  width: double.infinity,
                   child: Text(locale.login),
                   onPressed: _trySubmit,
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

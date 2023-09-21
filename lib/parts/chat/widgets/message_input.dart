@@ -25,27 +25,24 @@ class _MessageInputState extends State<MessageInput> {
 
   @override
   Widget build(BuildContext context) {
-    final theme = context.theme;
     final locale = context.l10n;
 
     return Container(
-      padding: EdgeInsets.only(bottom: 20, top: 20),
+      padding: EdgeInsets.fromLTRB(8, 8, 8, 20),
       child: Column(
         children: [
           Row(
             children: <Widget>[
               Expanded(
-                child: TextField(
+                child: AppTextField(
                   controller: _textEditingController,
-                  textCapitalization: TextCapitalization.sentences,
-                  autocorrect: true,
-                  enableSuggestions: true,
-                  decoration: InputDecoration(hintText: locale.sendAMessage),
+                  hintText: locale.sendAMessage,
+                  maxLines: 4,
                 ),
               ),
-              IconButton(
-                  color: theme.primaryColor,
-                  icon: Icon(Icons.send),
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: AppOutlinedButton(
                   onPressed: () {
                     if (_textEditingController.text.isNotEmpty) {
                       if (FocusScope.of(context).hasFocus)
@@ -54,7 +51,10 @@ class _MessageInputState extends State<MessageInput> {
 
                       _textEditingController.clear();
                     }
-                  })
+                  },
+                  child: Icon(Icons.send),
+                ),
+              ),
             ],
           ),
           if (!widget.isConnected)
