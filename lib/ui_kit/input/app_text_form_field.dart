@@ -41,6 +41,7 @@ class AppTextFormField extends StatelessWidget {
           borderSide: BorderSide(width: 1, color: theme.colorScheme.error),
           borderRadius: BorderRadius.all(Radius.circular(32)),
         ),
+        errorMaxLines: 2,
         fillColor: theme.splashColor,
         filled: true,
       ),
