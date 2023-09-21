@@ -19,8 +19,7 @@ class _CreateRoomState extends State<CreateRoom> {
   var _roomName = '';
 
   void _tryCreate() {
-    //  TODO: null check
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState!.save();
       if (FocusScope.of(context).hasFocus) FocusScope.of(context).unfocus();
       Navigator.of(context).pushReplacement(
@@ -46,54 +45,75 @@ class _CreateRoomState extends State<CreateRoom> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.theme;
     final locale = context.l10n;
 
-    return Scaffold(
-      appBar: AppBar(title: Text(locale.createRoom)),
-      body: Center(
-        child: Card(
-          margin: EdgeInsets.all(20),
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  TextFormField(
-                    autocorrect: true,
-                    autofocus: true,
-                    textCapitalization: TextCapitalization.words,
-                    enableSuggestions: false,
-                    validator: (value) {
-                      //  TODO: refactor
-                      if (value != null) {
-                        if (value.isEmpty || value.length < 3) {
-                          return locale.roomNameMinLengthError;
-                        } else if (value.length > 20) {
-                          return locale.roomNameMaxLengthError;
-                        } else {
-                          return value;
-                        }
-                      } else {
-                        return value;
-                      }
-                    },
-                    decoration: InputDecoration(labelText: locale.roomName),
-                    onSaved: (value) {
-                      //  TODO: null check
-                      _roomName = value!;
-                    },
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+      child: Form(
+        key: _formKey,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              locale.roomName,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.primaryColorDark,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 16),
+              child: TextFormField(
+                autocorrect: true,
+                autofocus: true,
+                textCapitalization: TextCapitalization.words,
+                enableSuggestions: false,
+                validator: (value) {
+                  final length = value?.length ?? 0;
+
+                  if ((value?.isEmpty ?? true) || length < 3) {
+                    return locale.roomNameMinLengthError;
+                  } else if (length > 20) {
+                    return locale.roomNameMaxLengthError;
+                  } else {
+                    return null;
+                  }
+                },
+                decoration: InputDecoration(
+                  contentPadding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.all(Radius.circular(32)),
                   ),
-                  SizedBox(height: 12),
-                  OutlinedButton(
-                    child: Text(locale.createRoom),
-                    onPressed: _tryCreate,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(width: 1, color: theme.primaryColor),
+                    borderRadius: BorderRadius.all(Radius.circular(32)),
                   ),
-                ],
+                  errorBorder: OutlineInputBorder(
+                    borderSide:
+                        BorderSide(width: 1, color: theme.colorScheme.error),
+                    borderRadius: BorderRadius.all(Radius.circular(32)),
+                  ),
+                  fillColor: theme.splashColor,
+                  filled: true,
+                ),
+                onSaved: (value) {
+                  //  TODO: null check
+                  _roomName = value!;
+                },
               ),
             ),
-          ),
+            Padding(
+              padding: const EdgeInsets.only(top: 24),
+              child: AppOutlinedButton(
+                width: double.infinity,
+                child: Text(locale.createRoom),
+                onPressed: _tryCreate,
+              ),
+            ),
+          ],
         ),
       ),
     );

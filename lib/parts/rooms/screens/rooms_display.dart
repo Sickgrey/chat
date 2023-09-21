@@ -20,20 +20,22 @@ class _RoomsDisplayState extends State<RoomsDisplay> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
-        onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-            builder: (_) => RepositoryProvider.value(
-                value: context.read<MessageRepository>(),
-                child: CreateRoom(user: widget.state.user)))),
+        onPressed: () => showBaseDialog(
+          context,
+          dialog: RepositoryProvider.value(
+            value: context.read<MessageRepository>(),
+            child: CreateRoom(user: widget.state.user),
+          ),
+        ),
       ),
       body: RefreshIndicator(
-        onRefresh: () async {
-          context.readRoomsBloc.add(RoomsFetched(user: widget.state.user));
-          //  TODO: remove code
-          //await context.read<RoomsBloc>().first;
-        },
+        onRefresh: () async => context.readRoomsBloc.add(
+          RoomsFetched(user: widget.state.user),
+        ),
         child: ListView(
-          physics:
-              ClampingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+          physics: ClampingScrollPhysics(
+            parent: AlwaysScrollableScrollPhysics(),
+          ),
           padding: EdgeInsets.symmetric(vertical: 15),
           children: ListTile.divideTiles(
             context: context,
@@ -54,9 +56,9 @@ class _RoomsDisplayState extends State<RoomsDisplay> {
                             ),
                           ))),
                   title: Text(e.name),
-                  subtitle: e.message != null
-                      ? Text('${e.message.sender.username} : ${e.message.text}')
-                      : Container(),
+                  subtitle: Text(
+                    '${e.message.sender.username} : ${e.message.text}',
+                  ),
                   trailing: Icon(
                     Icons.chevron_right,
                     size: 20,
