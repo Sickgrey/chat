@@ -56,11 +56,7 @@ class _LoginFormInputState extends State<LoginFormInput> {
               ),
               Padding(
                 padding: const EdgeInsets.only(top: 8),
-                child: TextFormField(
-                  autocorrect: true,
-                  autofocus: true,
-                  textCapitalization: TextCapitalization.words,
-                  enableSuggestions: false,
+                child: AppTextFormField(
                   validator: (value) {
                     //  TODO: check null value
                     if (!RegExp(r'^[A-Za-z0-9А-ЯЁа-яё -]{3,20}$')
@@ -68,28 +64,6 @@ class _LoginFormInputState extends State<LoginFormInput> {
                       return locale.nicknameValidationError;
                     return null;
                   },
-                  onTapOutside: (_) =>
-                      FocusManager.instance.primaryFocus?.unfocus(),
-                  decoration: InputDecoration(
-                    contentPadding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
-                      borderRadius: BorderRadius.all(Radius.circular(32)),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 1, color: theme.primaryColor),
-                      borderRadius: BorderRadius.all(Radius.circular(32)),
-                    ),
-                    errorBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(width: 1, color: theme.colorScheme.error),
-                      borderRadius: BorderRadius.all(Radius.circular(32)),
-                    ),
-                    fillColor: theme.splashColor,
-                    filled: true,
-                  ),
                   onSaved: (value) {
                     //  TODO: check null value
                     _userName = value!;

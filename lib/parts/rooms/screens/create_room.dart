@@ -64,11 +64,7 @@ class _CreateRoomState extends State<CreateRoom> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: TextFormField(
-                autocorrect: true,
-                autofocus: true,
-                textCapitalization: TextCapitalization.words,
-                enableSuggestions: false,
+              child: AppTextFormField(
                 validator: (value) {
                   final length = value?.length ?? 0;
 
@@ -80,25 +76,6 @@ class _CreateRoomState extends State<CreateRoom> {
                     return null;
                   }
                 },
-                decoration: InputDecoration(
-                  contentPadding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.all(Radius.circular(32)),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(width: 1, color: theme.primaryColor),
-                    borderRadius: BorderRadius.all(Radius.circular(32)),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(width: 1, color: theme.colorScheme.error),
-                    borderRadius: BorderRadius.all(Radius.circular(32)),
-                  ),
-                  fillColor: theme.splashColor,
-                  filled: true,
-                ),
                 onSaved: (value) {
                   //  TODO: null check
                   _roomName = value!;
