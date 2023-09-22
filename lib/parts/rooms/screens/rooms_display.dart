@@ -24,7 +24,10 @@ class _RoomsDisplayState extends State<RoomsDisplay> {
           context,
           dialog: RepositoryProvider.value(
             value: context.read<MessageRepository>(),
-            child: CreateRoom(user: widget.state.user),
+            child: BlocProvider.value(
+              value: context.readRoomsBloc,
+              child: CreateRoom(user: widget.state.user),
+            ),
           ),
         ),
       ),

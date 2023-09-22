@@ -40,6 +40,7 @@ class _CreateRoomState extends State<CreateRoom> {
           ),
         ),
       );
+      context.readRoomsBloc.add(RoomsFetched(user: widget.user));
     }
   }
 
