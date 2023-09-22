@@ -43,9 +43,9 @@ class MessageBubble extends StatelessWidget {
                       ? CrossAxisAlignment.end
                       : CrossAxisAlignment.start,
                   children: [
-                    if (message.sender.username.isNotEmpty)
+                    if (message.sender?.username.isNotEmpty ?? false)
                       Text(
-                        message.sender.username,
+                        message.sender!.username,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: theme.colorScheme.outline,
@@ -67,8 +67,10 @@ class MessageBubble extends StatelessWidget {
                           width: 10,
                           height: 10,
                           child: (message as UserMessage).isSent
-                              ? Icon(Icons.check,
-                                  color: theme.colorScheme.surface)
+                              ? Icon(
+                                  Icons.check,
+                                  color: theme.colorScheme.surface,
+                                )
                               : CircularProgressIndicator(
                                   valueColor: AlwaysStoppedAnimation(
                                       theme.colorScheme.background),

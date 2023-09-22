@@ -71,12 +71,10 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       final currentState = state as ChatLoadSuccess;
 
       final userMessage = UserMessage(
-          sender: Sender(username: user.username),
-          //  TODO: add created field
-          created: '',
-          text: event.text,
-          id: Uuid().v1(),
-          room: room);
+        text: event.text,
+        id: Uuid().v1(),
+        room: room,
+      );
       ChatLogger().logger.i('отправка сообщения ${userMessage.text}');
       messageRepository.sendMessage(userMessage);
 
@@ -96,17 +94,23 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       ChatLogger().logger.i('получение сообщения  ${event.message.text}');
       if (event.message is UserMessage &&
-          (state as ChatLoadSuccess)
-              .messages
+          currentState.messages
               .any((element) => element.id == event.message.id)) {
-        var messages = List<Message>.from((state as ChatLoadSuccess).messages);
-        messages.removeWhere((element) => element.id == event.message.id);
+        final userMessage = event.message as UserMessage;
+
+        var messages = List<Message>.from(currentState.messages);
+        final index =
+            messages.indexWhere((element) => element.id == userMessage.id);
+        if (index > -1) {
+          messages[index] = userMessage.copyWith(isSent: true);
+        }
         emit(currentState.copyWith(messages: messages));
+      } else {
+        emit(currentState.copyWith(messages: [
+          ...[event.message],
+          ...currentState.messages
+        ]));
       }
-      emit(currentState.copyWith(messages: [
-        ...[event.message],
-        ...currentState.messages
-      ]));
     }
   }
 
@@ -121,14 +125,16 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         if (currentState.connectionStatus == ConnectionStatus.connecting) {
           List<Message> newMessages = [];
           final chatHistory = await _downloadChatHistory();
+          //  TODO: refactor
           if (chatHistory.isNotEmpty) {
             if (currentState.messages
-                .any((element) => element.created.isNotEmpty))
+                .any((element) => element.created?.isNotEmpty ?? false))
               newMessages = chatHistory
-                  .where((element) => DateTime.parse(element.created).isAfter(
-                      DateTime.parse(currentState.messages
-                          .firstWhere((element) => element.created.isNotEmpty)
-                          .created)))
+                  .where((element) => DateTime.parse(element.created ?? '')
+                      .isAfter(DateTime.parse(currentState.messages
+                          .firstWhere(
+                              (element) => element.created?.isNotEmpty ?? false)
+                          .created!)))
                   .toList();
             else
               newMessages = chatHistory;

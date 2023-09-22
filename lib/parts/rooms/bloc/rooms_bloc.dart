@@ -49,8 +49,9 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
     Emitter<RoomsState> emit,
   ) async {
     try {
+      //  TODO: null check
       List<Room> rooms = await roomsRepository.downloadRooms();
-      rooms.sort((a, b) => -a.message.created.compareTo(b.message.created));
+      rooms.sort((a, b) => -a.message.created!.compareTo(b.message.created!));
 
       emit(RoomsLoadSuccess(
           user: event.user,
@@ -95,7 +96,8 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
         rooms.add(Room(name: event.message.room, message: event.message));
       }
 
-      rooms.sort((a, b) => -a.message.created.compareTo(b.message.created));
+      //  TODO: null check
+      rooms.sort((a, b) => -a.message.created!.compareTo(b.message.created!));
       emit(currentState.copyWith(rooms: rooms));
     }
   }

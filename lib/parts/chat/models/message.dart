@@ -10,25 +10,25 @@ Message parseMessage(Map<String, dynamic> messageJson, String username) {
 
 abstract class Message extends Equatable {
   final String room;
-  final String created;
-  final Sender sender;
   final String text;
   final String? id;
+  final String? created;
+  final Sender? sender;
 
   const Message({
     required this.room,
-    required this.created,
-    required this.sender,
     required this.text,
     this.id,
+    this.created,
+    this.sender,
   });
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    data['id'] = this.id ?? null;
+    data['id'] = this.id;
     data['room'] = this.room;
     data['created'] = this.created;
-    data['sender'] = this.sender.toJson();
+    data['sender'] = this.sender?.toJson();
     data['text'] = this.text;
 
     return data;
@@ -74,10 +74,10 @@ class UserMessage extends Message {
 
   const UserMessage({
     required String room,
-    required String created,
-    required Sender sender,
     required String text,
     String? id,
+    String? created,
+    Sender? sender,
     this.isSent = false,
   }) : super(
           room: room,
