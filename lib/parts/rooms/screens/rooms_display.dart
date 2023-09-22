@@ -57,7 +57,7 @@ class _RoomsDisplayState extends State<RoomsDisplay> {
                           ))),
                   title: Text(e.name),
                   subtitle: Text(
-                    '${e.message.sender.username} : ${e.message.text}',
+                    '${e.message.sender?.username ?? ''} : ${e.message.text}',
                   ),
                   trailing: Icon(
                     Icons.chevron_right,
