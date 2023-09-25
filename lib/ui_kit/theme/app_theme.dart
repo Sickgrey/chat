@@ -1,4 +1,4 @@
-part of ui_kit;
+part of '../ui_kit.dart';
 
 extension ThemeMethods on BuildContext {
   /// Returns [ThemeData] for the current [BuildContext].

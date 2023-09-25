@@ -1,4 +1,4 @@
-part of chat_part;
+part of '../chat_part.dart';
 
 /// {@template chatState}
 /// Abstract state class for [ChatBloc].

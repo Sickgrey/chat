@@ -1,9 +1,9 @@
-part of rooms_part;
+part of '../rooms_part.dart';
 
 /// {@template messageRepository}
 /// Implementation of [IMessageRepository] with production functionality.
 /// {@endtemplate}
-class MessageRepository extends IMessageRepository {
+class MessageRepository implements IMessageRepository {
   /// Reconnect duration.
   final Duration reconnectDuration;
 

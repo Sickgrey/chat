@@ -1,4 +1,4 @@
-part of theme_selector;
+part of '../theme_selector_part.dart';
 
 /// {@template iChatRepository}
 /// Chat repository interface.

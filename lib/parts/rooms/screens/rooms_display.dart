@@ -1,4 +1,4 @@
-part of rooms_part;
+part of '../rooms_part.dart';
 
 /// {@template roomsDisplay}
 /// Rooms display screen.

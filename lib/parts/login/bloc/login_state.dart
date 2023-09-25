@@ -1,4 +1,4 @@
-part of login_part;
+part of '../login_part.dart';
 
 /// {@template loginState}
 /// Abstract state class for [LoginBloc].
