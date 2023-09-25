@@ -1,9 +1,9 @@
-part of chat_part;
+part of '../chat_part.dart';
 
 /// {@template chatRepository}
 /// Implementation of [IChatRepository] with production functionality.
 /// {@endtemplate}
-class ChatRepository extends IChatRepository {
+class ChatRepository implements IChatRepository {
   /// Instance of [IChatDataProvider].
   final IChatDataProvider chatDataProvider;
 

@@ -1,9 +1,9 @@
-part of theme_selector;
+part of '../theme_selector_part.dart';
 
 /// {@template themeRepository}
 /// Implementation of [ThemeRepository] with production functionality.
 /// {@endtemplate}
-class ThemeRepository extends IThemeRepository {
+class ThemeRepository implements IThemeRepository {
   final _themeKey = 'themeKey';
 
   @override

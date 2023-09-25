@@ -1,4 +1,4 @@
-part of ui_kit;
+part of '../ui_kit.dart';
 
 /// Base function for show app design dialog.
 Future<T?> showBaseDialog<T>(

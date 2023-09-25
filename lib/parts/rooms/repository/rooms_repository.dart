@@ -1,9 +1,9 @@
-part of rooms_part;
+part of '../rooms_part.dart';
 
 /// {@template roomsRepository}
 /// Implementation of [IRoomsRepository] with production functionality.
 /// {@endtemplate}
-class RoomsRepository extends IRoomsRepository {
+class RoomsRepository implements IRoomsRepository {
   /// Instance of [IRoomsDataProvider].
   final IRoomsDataProvider roomsDataProvider;
 

@@ -1,9 +1,9 @@
-part of chat_part;
+part of '../chat_part.dart';
 
 /// {@template chatDataProvider}
 /// Implementation of [IChatDataProvider] with production functionality.
 /// {@endtemplate}
-class ChatDataProvider extends IChatDataProvider {
+class ChatDataProvider implements IChatDataProvider {
   @override
   Future<Map<String, dynamic>> downloadChatHistory(String room) async {
     Response response = await Dio().get(

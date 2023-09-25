@@ -1,4 +1,4 @@
-part of chat_part;
+part of '../chat_part.dart';
 
 /// {@template messageInput}
 /// Message input field.

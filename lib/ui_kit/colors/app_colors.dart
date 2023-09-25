@@ -1,4 +1,4 @@
-part of ui_kit;
+part of '../ui_kit.dart';
 
 //ignore_for_file: avoid_field_initializers_in_const_classes
 ///Set of application colors.

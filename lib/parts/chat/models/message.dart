@@ -1,4 +1,4 @@
-part of chat_part;
+part of '../chat_part.dart';
 
 Message parseMessage(Map<String, dynamic> messageJson, String username) {
   if (messageJson['sender'] != null &&
