@@ -17,7 +17,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:chat/sevices/connectivity_check.dart';
+import 'package:chat/code_kit/sevices/connectivity_check.dart';
 import 'package:chat/parts/chat/chat_part.dart';
 
 part 'bloc/rooms_bloc.dart';

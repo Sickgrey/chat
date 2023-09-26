@@ -43,7 +43,7 @@ class _AppState extends State<App> {
       value: widget.container,
       child: BlocProvider<ThemeCubit>(
         create: (context) => ThemeCubit(
-          themeRepository: ThemeRepository(),
+          themeRepository: widget.container.iThemeRepository,
         )..loadSavedTheme(),
         child: BlocBuilder<ThemeCubit, ThemeType>(
           builder: (context, state) => MaterialApp(

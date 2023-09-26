@@ -22,19 +22,19 @@ class _CreateRoomState extends State<CreateRoom> {
     if (_formKey.currentState?.validate() ?? false) {
       _formKey.currentState!.save();
       if (FocusScope.of(context).hasFocus) FocusScope.of(context).unfocus();
+      final dependencyContainer = context.read<DependencyContainer>();
+
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => RepositoryProvider.value(
             value: context.read<MessageRepository>(),
             child: BlocProvider(
               create: (context) => ChatBloc(
-                logger: context.read<DependencyContainer>().logger,
+                logger: dependencyContainer.logger,
                 messageRepository: context.read<MessageRepository>(),
                 room: _roomName,
                 user: widget.user,
-                chatRepository: ChatRepository(
-                  chatDataProvider: ChatDataProvider(),
-                ),
+                chatRepository: dependencyContainer.iChatRepository,
               )..add(const ChatFetched(isRoomNew: true)),
               child: const Chat(),
             ),

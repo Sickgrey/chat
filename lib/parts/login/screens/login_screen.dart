@@ -9,6 +9,7 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final dependencyContainer = context.read<DependencyContainer>();
     return BlocBuilder<LoginBloc, LoginState>(builder: (context, state) {
       if (state is LoginInput) {
         return const LoginFormInput();
@@ -17,11 +18,9 @@ class LoginScreen extends StatelessWidget {
           create: (context) => MessageRepository(user: state.user),
           child: BlocProvider(
             create: (context) => RoomsBloc(
-              logger: context.read<DependencyContainer>().logger,
+              logger: dependencyContainer.logger,
               messageRepository: context.read<MessageRepository>(),
-              roomsRepository: RoomsRepository(
-                roomsDataProvider: RoomsDataProvider(),
-              ),
+              roomsRepository: dependencyContainer.iRoomsRepository,
             )..add(RoomsOpened(user: state.user)),
             child: const Rooms(),
           ),

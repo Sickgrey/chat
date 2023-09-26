@@ -17,6 +17,8 @@ class RoomsDisplay extends StatefulWidget {
 class _RoomsDisplayState extends State<RoomsDisplay> {
   @override
   Widget build(BuildContext context) {
+    final dependencyContainer = context.read<DependencyContainer>();
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -49,15 +51,13 @@ class _RoomsDisplayState extends State<RoomsDisplay> {
                           value: context.read<MessageRepository>(),
                           child: BlocProvider(
                             create: (context) => ChatBloc(
-                              logger:
-                                  context.read<DependencyContainer>().logger,
+                              logger: dependencyContainer.logger,
                               messageRepository:
                                   context.read<MessageRepository>(),
                               room: e.name,
                               user: widget.state.user,
-                              chatRepository: ChatRepository(
-                                chatDataProvider: ChatDataProvider(),
-                              ),
+                              chatRepository:
+                                  dependencyContainer.iChatRepository,
                             )..add(const ChatFetched()),
                             child: const Chat(),
                           ),

@@ -19,6 +19,15 @@ class DependencyContainer {
   /// The log records loader that the developer_part uses.
   final PaginationLogLoader paginationLogLoader;
 
+  /// Chat repository.
+  final IChatRepository iChatRepository;
+
+  /// Rooms repository.
+  final IRoomsRepository iRoomsRepository;
+
+  /// Theme repository.
+  final IThemeRepository iThemeRepository;
+
   /// Creates the [DependencyContainer] that uses
   /// the given parameters.
   DependencyContainer({
@@ -27,6 +36,9 @@ class DependencyContainer {
     required this.environment,
     required this.logger,
     required this.paginationLogLoader,
+    required this.iChatRepository,
+    required this.iRoomsRepository,
+    required this.iThemeRepository,
   });
 
   /// Frees resources that this container use.

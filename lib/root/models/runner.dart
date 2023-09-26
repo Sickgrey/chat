@@ -49,6 +49,13 @@ abstract class AppRunner extends Runner {
       environment: environment,
       logger: logger,
       paginationLogLoader: hiveHandler,
+      iChatRepository: ChatRepository(
+        chatDataProvider: ChatDataProvider(dio: dio),
+      ),
+      iRoomsRepository: RoomsRepository(
+        roomsDataProvider: RoomsDataProvider(dio: dio),
+      ),
+      iThemeRepository: ThemeRepository(themeKey: config.themeKey),
     );
   }
 

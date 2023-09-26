@@ -8,7 +8,7 @@ import 'package:chat/root/root.dart';
 import 'package:chat/ui_kit/ui_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:chat/sevices/connectivity_check.dart';
+import 'package:chat/code_kit/sevices/connectivity_check.dart';
 import 'package:uuid/uuid.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
