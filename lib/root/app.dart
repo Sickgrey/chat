@@ -23,36 +23,31 @@ class App extends StatefulWidget {
 class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
-    // return BlocProvider(
-    //   create: (_) => EnvironmentCubit(widget.container.environment),
-    //   child: BlocListener<EnvironmentCubit, Environment>(
-    //     listener: (context, environment) =>
-    //         widget.onEnvironmentChanged(environment),
-    //     child: Provider<DependencyContainer>.value(
-    //       value: widget.container,
-    //       child: const MaterialApp(
-    //         localizationsDelegates: AppLocalizations.localizationsDelegates,
-    //         supportedLocales: AppLocalizations.supportedLocales,
-    //         home: Welcome(),
-    //       ),
-    //     ),
-    //   ),
-    // );
-
-    return Provider<DependencyContainer>.value(
-      value: widget.container,
-      child: BlocProvider<ThemeCubit>(
-        create: (context) => ThemeCubit(
-          themeRepository: widget.container.iThemeRepository,
-        )..loadSavedTheme(),
-        child: BlocBuilder<ThemeCubit, ThemeType>(
-          builder: (context, state) => MaterialApp(
-            theme: context.readThemeCubit.theme,
-            localizationsDelegates: AppLocalizations.localizationsDelegates,
-            supportedLocales: AppLocalizations.supportedLocales,
-            home: BlocProvider(
-              create: (context) => LoginBloc(logger: widget.container.logger),
-              child: const LoginScreen(),
+    return BlocProvider(
+      create: (_) => EnvironmentCubit(widget.container.environment),
+      child: BlocListener<EnvironmentCubit, Environment>(
+        listener: (context, environment) =>
+            widget.onEnvironmentChanged(environment),
+        child: Provider<DependencyContainer>.value(
+          value: widget.container,
+          child: MultiBlocProvider(
+            providers: [
+              BlocProvider<ThemeCubit>(
+                create: (_) => ThemeCubit(
+                  themeRepository: widget.container.iThemeRepository,
+                )..loadSavedTheme(),
+              ),
+              BlocProvider<LoginBloc>(
+                create: (_) => LoginBloc(logger: widget.container.logger),
+              )
+            ],
+            child: BlocBuilder<ThemeCubit, ThemeType>(
+              builder: (context, state) => MaterialApp(
+                theme: context.readThemeCubit.theme,
+                localizationsDelegates: AppLocalizations.localizationsDelegates,
+                supportedLocales: AppLocalizations.supportedLocales,
+                home: const LoginScreen(),
+              ),
             ),
           ),
         ),
