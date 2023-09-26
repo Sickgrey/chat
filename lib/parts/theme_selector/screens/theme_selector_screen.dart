@@ -30,7 +30,7 @@ class _ThemeSelectorScreenState extends State<ThemeSelectorScreen> {
         padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
         child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: themeTypes.length,
             itemBuilder: (context, index) {
               return Column(

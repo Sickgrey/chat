@@ -30,7 +30,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     required this.user,
     required this.chatRepository,
     required this.messageRepository,
-  }) : super(ChatInitial()) {
+  }) : super(const ChatInitial()) {
     messageSubscription = messageRepository.messageStream
         .where((message) => message.room == room)
         .listen(
@@ -72,7 +72,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       final userMessage = UserMessage(
         text: event.text,
-        id: Uuid().v1(),
+        id: const Uuid().v1(),
         room: room,
       );
       ChatLogger().logger.i('отправка сообщения ${userMessage.text}');
@@ -128,7 +128,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           //  TODO: refactor
           if (chatHistory.isNotEmpty) {
             if (currentState.messages
-                .any((element) => element.created?.isNotEmpty ?? false))
+                .any((element) => element.created?.isNotEmpty ?? false)) {
               newMessages = chatHistory
                   .where((element) => DateTime.parse(element.created ?? '')
                       .isAfter(DateTime.parse(currentState.messages
@@ -136,8 +136,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                               (element) => element.created?.isNotEmpty ?? false)
                           .created!)))
                   .toList();
-            else
+            } else {
               newMessages = chatHistory;
+            }
           }
           if (newMessages.isNotEmpty) {
             emit(currentState.copyWith(
@@ -165,7 +166,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       history.add(ReceivedMessage(
           room: room,
           created: DateTime.now().toString(),
-          sender: Sender(username: "System"),
+          sender: const Sender(username: "System"),
           text: "ошибка при загрузке истории: $e",
           id: ''));
     }

@@ -20,7 +20,7 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
   RoomsBloc({
     required this.roomsRepository,
     required this.messageRepository,
-  }) : super(RoomsInitial()) {
+  }) : super(const RoomsInitial()) {
     messageSubscription = messageRepository.messageStream.listen(
       (event) => add(RoomsMessageReceived(message: event)),
     );
@@ -59,7 +59,6 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
           connectionStatus: ConnectionStatus.active));
     } catch (e) {
       //  TODO: add logging
-      print(e);
       emit(RoomsLoadFailed(user: event.user));
     }
   }
@@ -75,8 +74,9 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
         add(RoomsFetched(user: (state as RoomsLoadSuccess).user));
       }
     } else if (state is RoomsLoadFailed) {
-      if (event.connectionStatus == ConnectionStatus.active)
+      if (event.connectionStatus == ConnectionStatus.active) {
         add(RoomsFetched(user: (state as RoomsLoadFailed).user));
+      }
     }
   }
 
@@ -113,14 +113,15 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
 
   @override
   Map<String, dynamic>? toJson(RoomsState state) {
-    if (state is RoomsLoadSuccess)
+    if (state is RoomsLoadSuccess) {
       return {
         'user': state.user.toJson(),
         'rooms': state.rooms.map((e) => e.toJson()).toList(),
         'connection': state.connectionStatus.toString()
       };
-    else
+    } else {
       return null;
+    }
   }
 
   @override

@@ -11,12 +11,12 @@ void main() async {
 
   HydratedBloc.storage = await HydratedStorage.build(
       storageDirectory: await getApplicationDocumentsDirectory());
-  runApp(
-    MyApp(),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider<ThemeCubit>(
@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           supportedLocales: AppLocalizations.supportedLocales,
           home: BlocProvider(
             create: (context) => LoginBloc(),
-            child: LoginScreen(),
+            child: const LoginScreen(),
           ),
         ),
       ),

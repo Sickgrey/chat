@@ -13,7 +13,6 @@ class AppTheme {
     final appColors = AppColors.violet();
 
     final theme = ThemeData(
-      textTheme: TextTheme(),
       colorScheme: ColorScheme.fromSeed(
         seedColor: appColors.primaryColor,
         error: appColors.errorColor,
@@ -45,7 +44,6 @@ class AppTheme {
     final appColors = AppColors.green();
 
     final theme = ThemeData(
-      textTheme: TextTheme(),
       colorScheme: ColorScheme.fromSeed(
         seedColor: appColors.primaryColor,
         error: appColors.errorColor,

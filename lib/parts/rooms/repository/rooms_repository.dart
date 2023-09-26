@@ -15,7 +15,8 @@ class RoomsRepository implements IRoomsRepository {
     Map<String, dynamic> json = await roomsDataProvider.downloadRooms();
     if (json['result'] != null) {
       return (json['result'] as List).map((e) => Room.fromJson(e)).toList();
-    } else
+    } else {
       throw Exception('Empty response');
+    }
   }
 }

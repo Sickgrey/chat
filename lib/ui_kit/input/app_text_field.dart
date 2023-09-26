@@ -33,13 +33,13 @@ class AppTextField extends StatelessWidget {
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         hintText: hintText,
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(Radius.circular(32)),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: theme.primaryColor),
-          borderRadius: BorderRadius.all(Radius.circular(32)),
+          borderRadius: const BorderRadius.all(Radius.circular(32)),
         ),
         fillColor: theme.splashColor,
         filled: true,

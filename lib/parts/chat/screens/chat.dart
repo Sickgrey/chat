@@ -13,8 +13,9 @@ class Chat extends StatelessWidget {
       builder: (context, state) {
         if (state is ChatLoadSuccess) {
           return ChatMain(state: state);
-        } else
-          return SplashScreen();
+        } else {
+          return const SplashScreen();
+        }
       },
     );
   }

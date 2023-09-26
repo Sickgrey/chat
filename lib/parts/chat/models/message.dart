@@ -2,10 +2,11 @@ part of '../chat_part.dart';
 
 Message parseMessage(Map<String, dynamic> messageJson, String username) {
   if (messageJson['sender'] != null &&
-      messageJson['sender']['username'] == username)
+      messageJson['sender']['username'] == username) {
     return UserMessage.fromJson(messageJson);
-  else
+  } else {
     return ReceivedMessage.fromJson(messageJson);
+  }
 }
 
 abstract class Message extends Equatable {
@@ -25,11 +26,11 @@ abstract class Message extends Equatable {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    data['id'] = this.id;
-    data['room'] = this.room;
-    data['created'] = this.created;
-    data['sender'] = this.sender?.toJson();
-    data['text'] = this.text;
+    data['id'] = id;
+    data['room'] = room;
+    data['created'] = created;
+    data['sender'] = sender?.toJson();
+    data['text'] = text;
 
     return data;
   }
@@ -125,7 +126,7 @@ class Sender extends Equatable {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    data['username'] = this.username;
+    data['username'] = username;
     return data;
   }
 

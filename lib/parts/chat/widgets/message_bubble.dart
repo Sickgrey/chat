@@ -26,14 +26,14 @@ class MessageBubble extends StatelessWidget {
                   color:
                       isUserMessage ? theme.primaryColorLight : theme.cardColor,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                    topRight: Radius.circular(12),
+                    topLeft: const Radius.circular(12),
+                    topRight: const Radius.circular(12),
                     bottomLeft: !isUserMessage
-                        ? Radius.circular(0)
-                        : Radius.circular(12),
+                        ? const Radius.circular(0)
+                        : const Radius.circular(12),
                     bottomRight: isUserMessage
-                        ? Radius.circular(0)
-                        : Radius.circular(12),
+                        ? const Radius.circular(0)
+                        : const Radius.circular(12),
                   ),
                 ),
                 padding: const EdgeInsets.all(8),

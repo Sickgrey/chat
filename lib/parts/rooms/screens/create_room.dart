@@ -11,7 +11,7 @@ class CreateRoom extends StatefulWidget {
   const CreateRoom({super.key, required this.user});
 
   @override
-  _CreateRoomState createState() => _CreateRoomState();
+  State<CreateRoom> createState() => _CreateRoomState();
 }
 
 class _CreateRoomState extends State<CreateRoom> {
@@ -34,8 +34,8 @@ class _CreateRoomState extends State<CreateRoom> {
                 chatRepository: ChatRepository(
                   chatDataProvider: ChatDataProvider(),
                 ),
-              )..add(ChatFetched(isRoomNew: true)),
-              child: Chat(),
+              )..add(const ChatFetched(isRoomNew: true)),
+              child: const Chat(),
             ),
           ),
         ),
@@ -50,7 +50,7 @@ class _CreateRoomState extends State<CreateRoom> {
     final locale = context.l10n;
 
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
       child: Form(
         key: _formKey,
         child: Column(
@@ -87,8 +87,8 @@ class _CreateRoomState extends State<CreateRoom> {
               padding: const EdgeInsets.only(top: 24),
               child: AppOutlinedButton(
                 width: double.infinity,
-                child: Text(locale.createRoom),
                 onPressed: _tryCreate,
+                child: Text(locale.createRoom),
               ),
             ),
           ],

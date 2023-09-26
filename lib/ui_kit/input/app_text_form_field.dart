@@ -29,17 +29,17 @@ class AppTextFormField extends StatelessWidget {
       validator: validator,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        border: OutlineInputBorder(
+        border: const OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.all(Radius.circular(32)),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: theme.primaryColor),
-          borderRadius: BorderRadius.all(Radius.circular(32)),
+          borderRadius: const BorderRadius.all(Radius.circular(32)),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(width: 1, color: theme.colorScheme.error),
-          borderRadius: BorderRadius.all(Radius.circular(32)),
+          borderRadius: const BorderRadius.all(Radius.circular(32)),
         ),
         errorMaxLines: 2,
         fillColor: theme.splashColor,

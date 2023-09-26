@@ -24,7 +24,7 @@ class SettingsButton extends StatelessWidget {
             color: theme.colorScheme.outline,
           ),
         ),
-        PopupMenuDivider(height: 1),
+        const PopupMenuDivider(height: 1),
         PopupMenuItem(
           value: 1,
           padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -48,7 +48,7 @@ class SettingsButton extends StatelessWidget {
             );
             break;
           case 1:
-            context.readLoginBloc.add(LoginExited());
+            context.readLoginBloc.add(const LoginExited());
             break;
         }
       },
@@ -56,7 +56,7 @@ class SettingsButton extends StatelessWidget {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Icon(Icons.settings),
+      child: const Icon(Icons.settings),
     );
   }
 }
