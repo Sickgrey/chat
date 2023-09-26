@@ -49,6 +49,8 @@ class _RoomsDisplayState extends State<RoomsDisplay> {
                           value: context.read<MessageRepository>(),
                           child: BlocProvider(
                             create: (context) => ChatBloc(
+                              logger:
+                                  context.read<DependencyContainer>().logger,
                               messageRepository:
                                   context.read<MessageRepository>(),
                               room: e.name,

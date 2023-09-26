@@ -4,8 +4,11 @@ part of '../login_part.dart';
 /// Login control bloc.
 /// {@endtemplate}
 class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
+  /// Instance of [AppLogger].
+  final AppLogger logger;
+
   /// {@macro loginBloc}
-  LoginBloc() : super(const LoginInput()) {
+  LoginBloc({required this.logger}) : super(const LoginInput()) {
     on(_onLoginSubmitted);
     on(_onLoginRetried);
     on(_onLoginExited);
@@ -15,12 +18,24 @@ class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
     LoginSubmitted event,
     Emitter<LoginState> emit,
   ) async {
-    final status =
-        await ConnectivityCheckService.connectivityCheck(['nane.tada.team']);
-    if (status == ConnectionStatus.active) {
-      emit(LoginSuccess(
-          user: User(username: event.username, uid: const Uuid().v1())));
-    } else {
+    try {
+      final status =
+          await ConnectivityCheckService.connectivityCheck(['nane.tada.team']);
+      if (status == ConnectionStatus.active) {
+        emit(LoginSuccess(
+            user: User(username: event.username, uid: const Uuid().v1())));
+      } else {
+        emit(const LoginFailed());
+      }
+    } catch (e, s) {
+      logger.error(
+        DeLogRecord(
+          'Connectivity check error',
+          name: 'LoginBloc -> _onLoginSubmitted',
+          error: e,
+          stackTrace: s,
+        ),
+      );
       emit(const LoginFailed());
     }
   }

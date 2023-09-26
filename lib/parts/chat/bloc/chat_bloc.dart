@@ -6,6 +6,9 @@ const String greetingsText = 'Всем чмоки!';
 /// Chat control bloc.
 /// {@endtemplate}
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
+  /// Instance of [AppLogger].
+  final AppLogger logger;
+
   /// Room name.
   final String room;
 
@@ -26,6 +29,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   /// {@macro chatBloc}
   ChatBloc({
+    required this.logger,
     required this.room,
     required this.user,
     required this.chatRepository,
@@ -161,7 +165,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     try {
       history = await chatRepository.downloadChatHistory(user.username, room);
       history = history.reversed.toList();
-    } catch (e) {
+    } catch (e, s) {
       ChatLogger().logger.i("ошибка при загрузке истории: $e");
       history.add(ReceivedMessage(
           room: room,
@@ -169,6 +173,15 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           sender: const Sender(username: "System"),
           text: "ошибка при загрузке истории: $e",
           id: ''));
+
+      logger.error(
+        DeLogRecord(
+          'Chat history download error',
+          name: 'ChatBloc -> _downloadChatHistory',
+          error: e,
+          stackTrace: s,
+        ),
+      );
     }
     return history;
   }

@@ -51,7 +51,7 @@ class _AppState extends State<App> {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             home: BlocProvider(
-              create: (context) => LoginBloc(),
+              create: (context) => LoginBloc(logger: widget.container.logger),
               child: const LoginScreen(),
             ),
           ),

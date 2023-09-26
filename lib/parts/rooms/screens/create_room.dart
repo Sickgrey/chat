@@ -28,6 +28,7 @@ class _CreateRoomState extends State<CreateRoom> {
             value: context.read<MessageRepository>(),
             child: BlocProvider(
               create: (context) => ChatBloc(
+                logger: context.read<DependencyContainer>().logger,
                 messageRepository: context.read<MessageRepository>(),
                 room: _roomName,
                 user: widget.user,
