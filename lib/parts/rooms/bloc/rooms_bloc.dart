@@ -4,6 +4,9 @@ part of '../rooms_part.dart';
 /// Rooms control bloc.
 /// {@endtemplate}
 class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
+  /// Instance of [AppLogger].
+  final AppLogger logger;
+
   /// Instance of [IRoomsRepository].
   final IRoomsRepository roomsRepository;
 
@@ -18,6 +21,7 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
 
   /// {@macro roomsBloc}
   RoomsBloc({
+    required this.logger,
     required this.roomsRepository,
     required this.messageRepository,
   }) : super(const RoomsInitial()) {
@@ -57,8 +61,15 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
           user: event.user,
           rooms: rooms,
           connectionStatus: ConnectionStatus.active));
-    } catch (e) {
-      //  TODO: add logging
+    } catch (e, s) {
+      logger.error(
+        DeLogRecord(
+          'Error loading list of rooms from server',
+          name: 'RoomsBloc -> _onRoomsFetched',
+          error: e,
+          stackTrace: s,
+        ),
+      );
       emit(RoomsLoadFailed(user: event.user));
     }
   }

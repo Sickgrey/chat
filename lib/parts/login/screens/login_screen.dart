@@ -17,6 +17,7 @@ class LoginScreen extends StatelessWidget {
           create: (context) => MessageRepository(user: state.user),
           child: BlocProvider(
             create: (context) => RoomsBloc(
+              logger: context.read<DependencyContainer>().logger,
               messageRepository: context.read<MessageRepository>(),
               roomsRepository: RoomsRepository(
                 roomsDataProvider: RoomsDataProvider(),
