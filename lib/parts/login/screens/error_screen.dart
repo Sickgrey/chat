@@ -21,11 +21,11 @@ class ErrorScreen extends StatelessWidget {
           children: [
             Text(
               locale.networkConnectionError,
-              style: TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red),
             ),
             OutlinedButton(
-              child: Text(locale.tryAgain),
               onPressed: onRetryTapped,
+              child: Text(locale.tryAgain),
             ),
           ],
         ),

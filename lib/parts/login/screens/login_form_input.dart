@@ -8,7 +8,7 @@ class LoginFormInput extends StatefulWidget {
   const LoginFormInput({super.key});
 
   @override
-  _LoginFormInputState createState() => _LoginFormInputState();
+  State<LoginFormInput> createState() => _LoginFormInputState();
 }
 
 class _LoginFormInputState extends State<LoginFormInput> {
@@ -31,7 +31,7 @@ class _LoginFormInputState extends State<LoginFormInput> {
     return Scaffold(
         body: Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
         child: Form(
           key: _formKey,
           child: Column(
@@ -60,8 +60,9 @@ class _LoginFormInputState extends State<LoginFormInput> {
                   validator: (value) {
                     //  TODO: check null value
                     if (!RegExp(r'^[A-Za-z0-9А-ЯЁа-яё -]{3,20}$')
-                        .hasMatch(value!))
+                        .hasMatch(value!)) {
                       return locale.nicknameValidationError;
+                    }
                     return null;
                   },
                   onSaved: (value) {
@@ -74,8 +75,8 @@ class _LoginFormInputState extends State<LoginFormInput> {
                 padding: const EdgeInsets.only(top: 24),
                 child: AppOutlinedButton(
                   width: double.infinity,
-                  child: Text(locale.login),
                   onPressed: _trySubmit,
+                  child: Text(locale.login),
                 ),
               ),
             ],

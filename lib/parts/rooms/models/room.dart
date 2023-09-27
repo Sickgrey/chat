@@ -15,8 +15,8 @@ class Room extends Equatable {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
-    data['name'] = this.name;
-    data['last_message'] = this.message.toJson();
+    data['name'] = name;
+    data['last_message'] = message.toJson();
 
     return data;
   }

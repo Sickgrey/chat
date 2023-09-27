@@ -4,8 +4,11 @@ part of '../login_part.dart';
 /// Login control bloc.
 /// {@endtemplate}
 class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
+  /// Instance of [AppLogger].
+  final AppLogger logger;
+
   /// {@macro loginBloc}
-  LoginBloc() : super(LoginInput()) {
+  LoginBloc({required this.logger}) : super(const LoginInput()) {
     on(_onLoginSubmitted);
     on(_onLoginRetried);
     on(_onLoginExited);
@@ -15,43 +18,57 @@ class LoginBloc extends HydratedBloc<LoginEvent, LoginState> {
     LoginSubmitted event,
     Emitter<LoginState> emit,
   ) async {
-    final status =
-        await ConnectivityCheckService.connectivityCheck(['nane.tada.team']);
-    if (status == ConnectionStatus.active) {
-      emit(
-          LoginSuccess(user: User(username: event.username, uid: Uuid().v1())));
-    } else {
-      emit(LoginFailed());
+    try {
+      final status =
+          await ConnectivityCheckService.connectivityCheck(['nane.tada.team']);
+      if (status == ConnectionStatus.active) {
+        emit(LoginSuccess(
+            user: User(username: event.username, uid: const Uuid().v1())));
+      } else {
+        emit(const LoginFailed());
+      }
+    } catch (e, s) {
+      logger.error(
+        DeLogRecord(
+          'Connectivity check error',
+          name: 'LoginBloc -> _onLoginSubmitted',
+          error: e,
+          stackTrace: s,
+        ),
+      );
+      emit(const LoginFailed());
     }
   }
 
   void _onLoginRetried(LoginRetried event, Emitter<LoginState> emit) =>
-      emit(LoginInput());
+      emit(const LoginInput());
 
   Future<void> _onLoginExited(
     LoginExited event,
     Emitter<LoginState> emit,
   ) async {
     await HydratedBloc.storage.clear();
-    emit(LoginInput());
+    emit(const LoginInput());
   }
 
   @override
   LoginState fromJson(Map<String, dynamic> json) {
-    if (json['type'] == 'LoginSuccess')
+    if (json['type'] == 'LoginSuccess') {
       return LoginSuccess(user: User.fromJson(json['user']));
-    else
-      return LoginInput();
+    } else {
+      return const LoginInput();
+    }
   }
 
   @override
   Map<String, dynamic>? toJson(LoginState state) {
-    if (state is LoginSuccess)
+    if (state is LoginSuccess) {
       return {'type': 'LoginSuccess', 'user': state.user.toJson()};
-    else if (state is LoginInput)
+    } else if (state is LoginInput) {
       return {'type': 'LoginInput'};
-    else
+    } else {
       return null;
+    }
   }
 }
 

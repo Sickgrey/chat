@@ -11,15 +11,17 @@ class RoomsDisplay extends StatefulWidget {
   const RoomsDisplay({super.key, required this.state});
 
   @override
-  _RoomsDisplayState createState() => _RoomsDisplayState();
+  State<RoomsDisplay> createState() => _RoomsDisplayState();
 }
 
 class _RoomsDisplayState extends State<RoomsDisplay> {
   @override
   Widget build(BuildContext context) {
+    final dependencyContainer = context.read<DependencyContainer>();
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
         onPressed: () => showBaseDialog(
           context,
           dialog: RepositoryProvider.value(
@@ -36,37 +38,40 @@ class _RoomsDisplayState extends State<RoomsDisplay> {
           RoomsFetched(user: widget.state.user),
         ),
         child: ListView(
-          physics: ClampingScrollPhysics(
+          physics: const ClampingScrollPhysics(
             parent: AlwaysScrollableScrollPhysics(),
           ),
-          padding: EdgeInsets.symmetric(vertical: 15),
+          padding: const EdgeInsets.symmetric(vertical: 15),
           children: ListTile.divideTiles(
             context: context,
-            tiles: widget.state.rooms.map((e) => ListTile(
-                  onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                      builder: (_) => RepositoryProvider.value(
-                            value: context.read<MessageRepository>(),
-                            child: BlocProvider(
-                              create: (context) => ChatBloc(
-                                  messageRepository:
-                                      context.read<MessageRepository>(),
-                                  room: e.name,
-                                  user: widget.state.user,
-                                  chatRepository: ChatRepository(
-                                      chatDataProvider: ChatDataProvider()))
-                                ..add(ChatFetched()),
-                              child: Chat(),
-                            ),
-                          ))),
-                  title: Text(e.name),
-                  subtitle: Text(
-                    '${e.message.sender?.username ?? ''} : ${e.message.text}',
-                  ),
-                  trailing: Icon(
-                    Icons.chevron_right,
-                    size: 20,
-                  ),
-                )),
+            tiles: widget.state.rooms.map(
+              (e) => ListTile(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (_) => RepositoryProvider.value(
+                          value: context.read<MessageRepository>(),
+                          child: BlocProvider(
+                            create: (context) => ChatBloc(
+                              logger: dependencyContainer.logger,
+                              messageRepository:
+                                  context.read<MessageRepository>(),
+                              room: e.name,
+                              user: widget.state.user,
+                              chatRepository:
+                                  dependencyContainer.iChatRepository,
+                            )..add(const ChatFetched()),
+                            child: const Chat(),
+                          ),
+                        ))),
+                title: Text(e.name),
+                subtitle: Text(
+                  '${e.message.sender?.username ?? ''} : ${e.message.text}',
+                ),
+                trailing: const Icon(
+                  Icons.chevron_right,
+                  size: 20,
+                ),
+              ),
+            ),
           ).toList(),
         ),
       ),

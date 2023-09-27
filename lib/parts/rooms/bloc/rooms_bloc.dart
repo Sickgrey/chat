@@ -4,6 +4,9 @@ part of '../rooms_part.dart';
 /// Rooms control bloc.
 /// {@endtemplate}
 class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
+  /// Instance of [AppLogger].
+  final AppLogger logger;
+
   /// Instance of [IRoomsRepository].
   final IRoomsRepository roomsRepository;
 
@@ -18,9 +21,10 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
 
   /// {@macro roomsBloc}
   RoomsBloc({
+    required this.logger,
     required this.roomsRepository,
     required this.messageRepository,
-  }) : super(RoomsInitial()) {
+  }) : super(const RoomsInitial()) {
     messageSubscription = messageRepository.messageStream.listen(
       (event) => add(RoomsMessageReceived(message: event)),
     );
@@ -57,9 +61,15 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
           user: event.user,
           rooms: rooms,
           connectionStatus: ConnectionStatus.active));
-    } catch (e) {
-      //  TODO: add logging
-      print(e);
+    } catch (e, s) {
+      logger.error(
+        DeLogRecord(
+          'Error loading list of rooms from server',
+          name: 'RoomsBloc -> _onRoomsFetched',
+          error: e,
+          stackTrace: s,
+        ),
+      );
       emit(RoomsLoadFailed(user: event.user));
     }
   }
@@ -75,8 +85,9 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
         add(RoomsFetched(user: (state as RoomsLoadSuccess).user));
       }
     } else if (state is RoomsLoadFailed) {
-      if (event.connectionStatus == ConnectionStatus.active)
+      if (event.connectionStatus == ConnectionStatus.active) {
         add(RoomsFetched(user: (state as RoomsLoadFailed).user));
+      }
     }
   }
 
@@ -113,14 +124,15 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
 
   @override
   Map<String, dynamic>? toJson(RoomsState state) {
-    if (state is RoomsLoadSuccess)
+    if (state is RoomsLoadSuccess) {
       return {
         'user': state.user.toJson(),
         'rooms': state.rooms.map((e) => e.toJson()).toList(),
         'connection': state.connectionStatus.toString()
       };
-    else
+    } else {
       return null;
+    }
   }
 
   @override

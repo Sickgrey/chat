@@ -4,17 +4,21 @@ part of '../theme_selector_part.dart';
 /// Implementation of [ThemeRepository] with production functionality.
 /// {@endtemplate}
 class ThemeRepository implements IThemeRepository {
-  final _themeKey = 'themeKey';
+  /// The key is for storing the app's current theme.
+  final String themeKey;
+
+  /// {@macro themeRepository}
+  const ThemeRepository({required this.themeKey});
 
   @override
   Future<void> saveTheme({required String themeName}) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setString(_themeKey, themeName);
+    await prefs.setString(themeKey, themeName);
   }
 
   @override
   Future<String> fetchTheme() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    return prefs.getString(_themeKey) ?? '';
+    return prefs.getString(themeKey) ?? '';
   }
 }

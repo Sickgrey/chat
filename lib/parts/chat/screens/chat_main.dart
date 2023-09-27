@@ -22,9 +22,9 @@ class ChatMain extends StatelessWidget {
           title: Text(state.room),
           actions: [
             IconButton(
-              icon: Icon(Icons.notes),
-              onPressed: () => Navigator.of(context)
-                  .push(MaterialPageRoute(builder: (context) => ChatLog())),
+              icon: const Icon(Icons.notes),
+              onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const ChatLog())),
             )
           ],
         ),

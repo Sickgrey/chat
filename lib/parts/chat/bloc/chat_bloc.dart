@@ -6,6 +6,9 @@ const String greetingsText = 'Всем чмоки!';
 /// Chat control bloc.
 /// {@endtemplate}
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
+  /// Instance of [AppLogger].
+  final AppLogger logger;
+
   /// Room name.
   final String room;
 
@@ -26,11 +29,12 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   /// {@macro chatBloc}
   ChatBloc({
+    required this.logger,
     required this.room,
     required this.user,
     required this.chatRepository,
     required this.messageRepository,
-  }) : super(ChatInitial()) {
+  }) : super(const ChatInitial()) {
     messageSubscription = messageRepository.messageStream
         .where((message) => message.room == room)
         .listen(
@@ -72,7 +76,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
       final userMessage = UserMessage(
         text: event.text,
-        id: Uuid().v1(),
+        id: const Uuid().v1(),
         room: room,
       );
       ChatLogger().logger.i('отправка сообщения ${userMessage.text}');
@@ -128,7 +132,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           //  TODO: refactor
           if (chatHistory.isNotEmpty) {
             if (currentState.messages
-                .any((element) => element.created?.isNotEmpty ?? false))
+                .any((element) => element.created?.isNotEmpty ?? false)) {
               newMessages = chatHistory
                   .where((element) => DateTime.parse(element.created ?? '')
                       .isAfter(DateTime.parse(currentState.messages
@@ -136,8 +140,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
                               (element) => element.created?.isNotEmpty ?? false)
                           .created!)))
                   .toList();
-            else
+            } else {
               newMessages = chatHistory;
+            }
           }
           if (newMessages.isNotEmpty) {
             emit(currentState.copyWith(
@@ -160,14 +165,23 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     try {
       history = await chatRepository.downloadChatHistory(user.username, room);
       history = history.reversed.toList();
-    } catch (e) {
+    } catch (e, s) {
       ChatLogger().logger.i("ошибка при загрузке истории: $e");
       history.add(ReceivedMessage(
           room: room,
           created: DateTime.now().toString(),
-          sender: Sender(username: "System"),
+          sender: const Sender(username: "System"),
           text: "ошибка при загрузке истории: $e",
           id: ''));
+
+      logger.error(
+        DeLogRecord(
+          'Chat history download error',
+          name: 'ChatBloc -> _downloadChatHistory',
+          error: e,
+          stackTrace: s,
+        ),
+      );
     }
     return history;
   }

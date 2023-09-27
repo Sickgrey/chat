@@ -12,12 +12,13 @@ class MessageInput extends StatefulWidget {
 
   /// {@macro messageInput}
   const MessageInput({
+    super.key,
     required this.onMessageEntered,
     required this.isConnected,
   });
 
   @override
-  _MessageInputState createState() => _MessageInputState();
+  State<MessageInput> createState() => _MessageInputState();
 }
 
 class _MessageInputState extends State<MessageInput> {
@@ -28,7 +29,7 @@ class _MessageInputState extends State<MessageInput> {
     final locale = context.l10n;
 
     return Container(
-      padding: EdgeInsets.fromLTRB(8, 8, 8, 20),
+      padding: const EdgeInsets.fromLTRB(8, 8, 8, 20),
       child: Column(
         children: [
           Row(
@@ -45,14 +46,15 @@ class _MessageInputState extends State<MessageInput> {
                 child: AppOutlinedButton(
                   onPressed: () {
                     if (_textEditingController.text.isNotEmpty) {
-                      if (FocusScope.of(context).hasFocus)
+                      if (FocusScope.of(context).hasFocus) {
                         FocusScope.of(context).unfocus();
+                      }
                       widget.onMessageEntered(_textEditingController.text);
 
                       _textEditingController.clear();
                     }
                   },
-                  child: Icon(Icons.send),
+                  child: const Icon(Icons.send),
                 ),
               ),
             ],

@@ -14,22 +14,22 @@ class Rooms extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(locale.rooms),
-        actions: [
+        actions: const [
           Padding(
-            padding: const EdgeInsets.only(right: 8),
+            padding: EdgeInsets.only(right: 8),
             child: SettingsButton(),
           ),
         ],
       ),
       body: BlocConsumer<RoomsBloc, RoomsState>(
         listener: (context, state) {
-          RoomsLoadSuccess _state = state as RoomsLoadSuccess;
+          final currentState = state as RoomsLoadSuccess;
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
             ..showSnackBar(
               SnackBar(
                 content: Text(
-                  _state.connectionStatus == ConnectionStatus.connecting
+                  currentState.connectionStatus == ConnectionStatus.connecting
                       ? locale.connectionLost
                       : locale.connectionRestored,
                 ),
@@ -40,16 +40,17 @@ class Rooms extends StatelessWidget {
             (previous is RoomsLoadSuccess && current is RoomsLoadSuccess) &&
             current.connectionStatus != previous.connectionStatus,
         builder: (context, state) {
-          if (state is RoomsLoadFailed)
+          if (state is RoomsLoadFailed) {
             return ErrorScreen(
               onRetryTapped: () => context.readRoomsBloc.add(
                 RoomsFetched(user: state.user),
               ),
             );
-          else if (state is RoomsLoadSuccess)
+          } else if (state is RoomsLoadSuccess) {
             return RoomsDisplay(state: state);
-          else
-            return SplashScreen();
+          } else {
+            return const SplashScreen();
+          }
         },
       ),
     );

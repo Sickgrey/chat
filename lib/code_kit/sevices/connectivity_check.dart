@@ -34,10 +34,11 @@ class ConnectivityCheckService {
 
   static Future<ConnectionStatus> connectivityCheck(List<String> hosts) async {
     List<bool> results = await Future.wait(hosts.map((e) => _lookupHost(e)));
-    if (!results.contains(true))
+    if (!results.contains(true)) {
       return ConnectionStatus.connecting;
-    else
+    } else {
       return ConnectionStatus.active;
+    }
   }
 
   static Future<bool> _lookupHost(String host) async {
