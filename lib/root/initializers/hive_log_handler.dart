@@ -24,6 +24,7 @@ Future<HiveQueueLogHandler> initializeHiveLogHandler(Config config) =>
       },
 
       /// Here you can handle errors in the low-level error handlers such as Firebase, Sentry.
+      //ignore:avoid_print
       (error, stackTrace) => print(
         'error in create HiveQueueLogHandler instance \nerror: $error \n stackTrace: $stackTrace',
       ),

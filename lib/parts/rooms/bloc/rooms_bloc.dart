@@ -99,10 +99,12 @@ class RoomsBloc extends HydratedBloc<RoomsEvent, RoomsState> {
       final currentState = state as RoomsLoadSuccess;
 
       List<Room> rooms = List.from((state as RoomsLoadSuccess).rooms);
-      Room room =
-          rooms.firstWhere((element) => element.name == event.message.room);
-      if (room != null) {
-        rooms[rooms.indexOf(room)] = room.copyWith(message: event.message);
+
+      final index =
+          rooms.indexWhere((element) => element.name == event.message.room);
+      if (index > -1) {
+        final room = rooms[index];
+        rooms[index] = room.copyWith(message: event.message);
       } else {
         rooms.add(Room(name: event.message.room, message: event.message));
       }
