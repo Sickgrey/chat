@@ -18,7 +18,5 @@ part 'bloc/login_bloc.dart';
 part 'bloc/login_event.dart';
 part 'bloc/login_state.dart';
 part 'models/user.dart';
-part 'screens/error_screen.dart';
 part 'screens/login_form_input.dart';
 part 'screens/login_screen.dart';
-part 'screens/splash_screen.dart';

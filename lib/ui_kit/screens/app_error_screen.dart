@@ -1,14 +1,14 @@
-part of '../login_part.dart';
+part of '../ui_kit.dart';
 
-/// {@template errorScreen}
+/// {@template appErrorScreen}
 /// Error screen.
 /// {@endtemplate}
-class ErrorScreen extends StatelessWidget {
+class AppErrorScreen extends StatelessWidget {
   /// Retry callback.
   final VoidCallback onRetryTapped;
 
-  /// {@macro errorScreen}
-  const ErrorScreen({super.key, required this.onRetryTapped});
+  /// {@macro appErrorScreen}
+  const AppErrorScreen({super.key, required this.onRetryTapped});
 
   @override
   Widget build(BuildContext context) {

@@ -17,8 +17,6 @@ class RoomsDisplay extends StatefulWidget {
 class _RoomsDisplayState extends State<RoomsDisplay> {
   @override
   Widget build(BuildContext context) {
-    final dependencyContainer = context.read<DependencyContainer>();
-
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
@@ -46,22 +44,17 @@ class _RoomsDisplayState extends State<RoomsDisplay> {
             context: context,
             tiles: widget.state.rooms.map(
               (e) => ListTile(
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
                     builder: (_) => RepositoryProvider.value(
-                          value: context.read<MessageRepository>(),
-                          child: BlocProvider(
-                            create: (context) => ChatBloc(
-                              logger: dependencyContainer.logger,
-                              messageRepository:
-                                  context.read<MessageRepository>(),
-                              room: e.name,
-                              user: widget.state.user,
-                              chatRepository:
-                                  dependencyContainer.iChatRepository,
-                            )..add(const ChatFetched()),
-                            child: const Chat(),
-                          ),
-                        ))),
+                      value: context.read<MessageRepository>(),
+                      child: ChatPart(
+                        roomName: e.name,
+                        user: widget.state.user,
+                      ),
+                    ),
+                  ),
+                ),
                 title: Text(e.name),
                 subtitle: Text(
                   '${e.message.sender?.username ?? ''} : ${e.message.text}',

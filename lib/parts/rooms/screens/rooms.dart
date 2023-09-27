@@ -41,7 +41,7 @@ class Rooms extends StatelessWidget {
             current.connectionStatus != previous.connectionStatus,
         builder: (context, state) {
           if (state is RoomsLoadFailed) {
-            return ErrorScreen(
+            return AppErrorScreen(
               onRetryTapped: () => context.readRoomsBloc.add(
                 RoomsFetched(user: state.user),
               ),
@@ -49,7 +49,7 @@ class Rooms extends StatelessWidget {
           } else if (state is RoomsLoadSuccess) {
             return RoomsDisplay(state: state);
           } else {
-            return const SplashScreen();
+            return const AppLoadingScreen();
           }
         },
       ),
