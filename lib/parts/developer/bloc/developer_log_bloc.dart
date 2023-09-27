@@ -90,7 +90,7 @@ class DeveloperLogBloc extends Bloc<DeveloperLogEvent, DeveloperLogState> {
     final file = File("${(await getTemporaryDirectory()).path}/log.json")
       ..create()
       ..writeAsString(jsonEncode(records));
-    //  TODO: share file
-    //await Share.shareXFiles([XFile(file.path)], subject: "Log");
+
+    await Share.shareXFiles([XFile(file.path)], subject: "Log");
   }
 }

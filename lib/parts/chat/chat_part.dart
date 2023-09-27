@@ -25,7 +25,52 @@ part 'models/message.dart';
 part 'repository/chat_repository.dart';
 part 'repository/i_chat_repository.dart';
 part 'screens/chat_log.dart';
-part 'screens/chat_main.dart';
-part 'screens/chat.dart';
+part 'screens/chat_screen.dart';
 part 'widgets/message_bubble.dart';
 part 'widgets/message_input.dart';
+
+/// {@template chatPart}
+/// Chat part widget.
+/// {@endtemplate}
+class ChatPart extends StatelessWidget {
+  /// Room name.
+  final String roomName;
+
+  /// User.
+  final User user;
+
+  /// New room.
+  final bool isRoomNew;
+
+  /// {@macro chatPart}
+  const ChatPart({
+    super.key,
+    required this.roomName,
+    required this.user,
+    this.isRoomNew = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final dependencyContainer = context.read<DependencyContainer>();
+
+    return BlocProvider(
+      create: (context) => ChatBloc(
+        logger: dependencyContainer.logger,
+        messageRepository: context.read<MessageRepository>(),
+        room: roomName,
+        user: user,
+        chatRepository: dependencyContainer.iChatRepository,
+      )..add(ChatFetched(isRoomNew: isRoomNew)),
+      child: BlocBuilder<ChatBloc, ChatState>(
+        builder: (context, state) {
+          if (state is ChatLoadSuccess) {
+            return ChatScreen(state: state);
+          } else {
+            return const AppLoadingScreen();
+          }
+        },
+      ),
+    );
+  }
+}

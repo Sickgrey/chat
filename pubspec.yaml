@@ -12,6 +12,7 @@ dependencies:
   bloc: ^8.1.2
   bloc_concurrency: ^0.2.2
   bloc_test: ^9.1.4
+  cross_file: ^0.3.3+5
   cupertino_icons: ^1.0.6
   data_queue: ^1.0.2
   de_log: ^1.0.0

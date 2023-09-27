@@ -7,6 +7,7 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart';
 import 'package:chat/code_kit/de_log/de_log_kit.dart';
 import 'package:chat/root/root.dart';
+import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stream_transform/stream_transform.dart';

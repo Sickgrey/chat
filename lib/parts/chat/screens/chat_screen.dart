@@ -3,12 +3,12 @@ part of '../chat_part.dart';
 /// {@template chatMain}
 /// Chat main screen.
 /// {@endtemplate}
-class ChatMain extends StatelessWidget {
+class ChatScreen extends StatelessWidget {
   /// Chat state.
   final ChatLoadSuccess state;
 
   /// {@macro chatMain}
-  const ChatMain({super.key, required this.state});
+  const ChatScreen({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
