@@ -26,6 +26,17 @@ class SettingsButton extends StatelessWidget {
         ),
         const PopupMenuDivider(height: 1),
         PopupMenuItem(
+          value: 2,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          height: 32,
+          child: _MenuItem(
+            icon: Icons.info,
+            title: locale.info,
+            color: theme.colorScheme.outline,
+          ),
+        ),
+        const PopupMenuDivider(height: 1),
+        PopupMenuItem(
           value: 1,
           padding: const EdgeInsets.symmetric(horizontal: 8),
           height: 32,
@@ -49,6 +60,13 @@ class SettingsButton extends StatelessWidget {
             break;
           case 1:
             context.readLoginBloc.add(const LoginExited());
+            break;
+          case 2:
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (_) => const DeveloperAppVersionInfo(),
+              ),
+            );
             break;
         }
       },

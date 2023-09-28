@@ -16,5 +16,11 @@
     "connectionRestored": "соединение восстановлено",
     "theme": "Тема",
     "logout": "Выйти",
-    "welcome": "Добро\n пожаловать"
+    "welcome": "Добро\n пожаловать",
+    "appVersion": "Версия приложения",
+    "info": "Инфо",
+    "environment": "Окружение",
+    "openLog": "Открыть лог",
+    "log": "Лог",
+    "failedToOpenLog": "Не удалось загрузить лог"
 }
