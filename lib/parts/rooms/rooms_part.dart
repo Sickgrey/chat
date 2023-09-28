@@ -5,6 +5,7 @@ import 'dart:convert';
 
 import 'package:chat/code_kit/de_log/de_log_kit.dart';
 import 'package:chat/l10n/l10n.dart';
+import 'package:chat/parts/developer/developer_part.dart';
 import 'package:chat/parts/theme_selector/theme_selector_part.dart';
 import 'package:chat/root/root.dart';
 import 'package:chat/ui_kit/ui_kit.dart';
