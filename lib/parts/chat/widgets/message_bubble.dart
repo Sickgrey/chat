@@ -40,9 +40,7 @@ class MessageBubble extends StatelessWidget {
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.all(8),
           child: Column(
-            crossAxisAlignment: isUserMessage
-                ? CrossAxisAlignment.start
-                : CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (message.sender?.username.isNotEmpty ?? false)
                 Text(
