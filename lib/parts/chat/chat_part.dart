@@ -7,6 +7,7 @@ import 'package:chat/l10n/l10n.dart';
 import 'package:chat/root/root.dart';
 import 'package:chat/ui_kit/ui_kit.dart';
 import 'package:equatable/equatable.dart';
+import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
 import 'package:chat/code_kit/sevices/connectivity_check.dart';
 import 'package:chat/parts/login/login_part.dart';

@@ -39,41 +39,58 @@ class MessageBubble extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(8),
           margin: const EdgeInsets.all(8),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (message.sender?.username.isNotEmpty ?? false)
-                Text(
-                  message.sender!.username,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    color: theme.colorScheme.outline,
+          child: IntrinsicWidth(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (message.sender?.username.isNotEmpty ?? false)
+                  Text(
+                    message.sender!.username,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.outline,
+                    ),
                   ),
-                  textAlign: TextAlign.start,
-                ),
-              Padding(
-                padding: const EdgeInsets.only(top: 4),
-                child: Text(
-                  message.text,
-                  style: TextStyle(color: theme.colorScheme.outline),
-                ),
-              ),
-              if (isUserMessage)
                 Padding(
                   padding: const EdgeInsets.only(top: 4),
-                  child: (message as UserMessage).isSent
-                      ? Icon(
-                          Icons.check,
-                          color: theme.colorScheme.surface,
-                          size: 18,
-                        )
-                      : CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation(
-                              theme.colorScheme.background),
-                          strokeWidth: 2,
-                        ),
+                  child: Text(
+                    message.text,
+                    style: TextStyle(color: theme.colorScheme.outline),
+                  ),
                 ),
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (message.created?.isNotEmpty ?? false)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Text(
+                          DateFormat('dd.MM.yy hh:mm')
+                              .format(DateTime.tryParse(message.created!) ??
+                                  DateTime.now())
+                              .toString(),
+                          style: const TextStyle(fontSize: 9),
+                        ),
+                      ),
+                    if (isUserMessage)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 4, top: 8),
+                        child: (message as UserMessage).isSent
+                            ? Icon(
+                                Icons.check,
+                                color: theme.colorScheme.surface,
+                                size: 12,
+                              )
+                            : CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation(
+                                    theme.colorScheme.background),
+                                strokeWidth: 2,
+                              ),
+                      ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ],
