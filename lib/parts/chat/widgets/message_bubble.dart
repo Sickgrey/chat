@@ -16,72 +16,81 @@ class MessageBubble extends StatelessWidget {
     final isUserMessage = message is UserMessage;
 
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment:
+          isUserMessage ? MainAxisAlignment.end : MainAxisAlignment.start,
       children: [
-        Expanded(
-          child: Wrap(
-            alignment: isUserMessage ? WrapAlignment.end : WrapAlignment.start,
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  color:
-                      isUserMessage ? theme.primaryColorLight : theme.cardColor,
-                  borderRadius: BorderRadius.only(
-                    topLeft: const Radius.circular(12),
-                    topRight: const Radius.circular(12),
-                    bottomLeft: !isUserMessage
-                        ? const Radius.circular(0)
-                        : const Radius.circular(12),
-                    bottomRight: isUserMessage
-                        ? const Radius.circular(0)
-                        : const Radius.circular(12),
+        Container(
+          decoration: BoxDecoration(
+            color: isUserMessage ? theme.primaryColorLight : theme.cardColor,
+            borderRadius: BorderRadius.only(
+              topLeft: const Radius.circular(12),
+              topRight: const Radius.circular(12),
+              bottomLeft: !isUserMessage
+                  ? const Radius.circular(0)
+                  : const Radius.circular(12),
+              bottomRight: isUserMessage
+                  ? const Radius.circular(0)
+                  : const Radius.circular(12),
+            ),
+          ),
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.sizeOf(context).width * 0.7,
+          ),
+          padding: const EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
+          child: IntrinsicWidth(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (message.sender?.username.isNotEmpty ?? false)
+                  Text(
+                    message.sender!.username,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: theme.colorScheme.outline,
+                    ),
+                  ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    message.text,
+                    style: TextStyle(color: theme.colorScheme.outline),
                   ),
                 ),
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.all(8),
-                child: Column(
-                  crossAxisAlignment: isUserMessage
-                      ? CrossAxisAlignment.end
-                      : CrossAxisAlignment.start,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    if (message.sender?.username.isNotEmpty ?? false)
-                      Text(
-                        message.sender!.username,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: theme.colorScheme.outline,
+                    if (message.created?.isNotEmpty ?? false)
+                      Padding(
+                        padding: const EdgeInsets.only(top: 12),
+                        child: Text(
+                          DateFormat('dd.MM.yy hh:mm')
+                              .format(DateTime.tryParse(message.created!) ??
+                                  DateTime.now())
+                              .toString(),
+                          style: const TextStyle(fontSize: 9),
                         ),
                       ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 4),
-                      child: Text(
-                        message.text,
-                        style: TextStyle(color: theme.colorScheme.outline),
-                        textAlign:
-                            isUserMessage ? TextAlign.end : TextAlign.start,
-                      ),
-                    ),
                     if (isUserMessage)
                       Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 6, 10, 10),
-                        child: SizedBox(
-                          width: 10,
-                          height: 10,
-                          child: (message as UserMessage).isSent
-                              ? Icon(
-                                  Icons.check,
-                                  color: theme.colorScheme.surface,
-                                )
-                              : CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation(
-                                      theme.colorScheme.background),
-                                  strokeWidth: 2,
-                                ),
-                        ),
+                        padding: const EdgeInsets.only(left: 4, top: 8),
+                        child: (message as UserMessage).isSent
+                            ? Icon(
+                                Icons.check,
+                                color: theme.colorScheme.surface,
+                                size: 12,
+                              )
+                            : CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation(
+                                    theme.colorScheme.background),
+                                strokeWidth: 2,
+                              ),
                       ),
                   ],
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ],
