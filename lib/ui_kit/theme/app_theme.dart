@@ -9,65 +9,33 @@ extension ThemeMethods on BuildContext {
 /// Class used to store application themes styles.
 class AppTheme {
   /// Returns "violet" [ThemeData] for app.
-  static ThemeData get violet {
-    final appColors = AppColors.violet();
+  static ThemeData get violet => _buildThemeData(AppColors.violet());
 
-    final theme = ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: appColors.primaryColor,
-        error: appColors.errorColor,
-        surface: appColors.supportColor,
-        outline: appColors.black,
-        background: appColors.white,
-      ),
-      primaryColor: appColors.primaryColor,
-      primaryColorDark: appColors.primaryColorDark,
-      primaryColorLight: appColors.primaryColorLight,
-      cardColor: appColors.cardColor,
-      hintColor: appColors.hintColor,
-      highlightColor: Colors.transparent,
-      splashColor: appColors.primaryColor.withOpacity(0.12),
-      appBarTheme: AppBarTheme(color: appColors.primaryColor),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: appColors.primaryColor,
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        labelStyle: TextStyle(color: appColors.primaryColor),
-        focusColor: appColors.primaryColor,
-      ),
-    );
+  /// Returns "green" [ThemeData] for app.
+  static ThemeData get green => _buildThemeData(AppColors.green());
 
-    return theme;
-  }
-
-  static ThemeData get green {
-    final appColors = AppColors.green();
-
-    final theme = ThemeData(
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: appColors.primaryColor,
-        error: appColors.errorColor,
-        surface: appColors.supportColor,
-        outline: appColors.black,
-        background: appColors.white,
-      ),
-      primaryColor: appColors.primaryColor,
-      primaryColorDark: appColors.primaryColorDark,
-      primaryColorLight: appColors.primaryColorLight,
-      cardColor: appColors.cardColor,
-      hintColor: appColors.hintColor,
-      highlightColor: Colors.transparent,
-      splashColor: appColors.primaryColor.withOpacity(0.12),
-      appBarTheme: AppBarTheme(color: appColors.primaryColor),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
-        backgroundColor: appColors.primaryColor,
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        labelStyle: TextStyle(color: appColors.primaryColor),
-        focusColor: appColors.primaryColor,
-      ),
-    );
-
-    return theme;
-  }
+  static ThemeData _buildThemeData(AppColors colors) => ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: colors.primaryColor,
+          error: colors.errorColor,
+          surface: colors.supportColor,
+          outline: colors.black,
+          background: colors.white,
+        ),
+        primaryColor: colors.primaryColor,
+        primaryColorDark: colors.primaryColorDark,
+        primaryColorLight: colors.primaryColorLight,
+        cardColor: colors.cardColor,
+        hintColor: colors.hintColor,
+        highlightColor: Colors.transparent,
+        splashColor: colors.primaryColor.withOpacity(0.12),
+        appBarTheme: AppBarTheme(color: colors.primaryColor),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: colors.primaryColor,
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          labelStyle: TextStyle(color: colors.primaryColor),
+          focusColor: colors.primaryColor,
+        ),
+      );
 }
